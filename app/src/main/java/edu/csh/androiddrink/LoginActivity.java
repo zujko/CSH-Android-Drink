@@ -1,13 +1,11 @@
 package edu.csh.androiddrink;
 
 import android.app.Activity;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.dd.processbutton.iml.ActionProcessButton;
 import com.securepreferences.SecurePreferences;
@@ -15,12 +13,15 @@ import com.securepreferences.SecurePreferences;
 
 public class LoginActivity extends Activity {
 
-    SharedPreferences prefs;
+
     Activity thisAct = this;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        SecurePreferences prefs = new SecurePreferences(this,"APIKey","key", true);
+        String api = prefs.getString("userKey");
+
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -35,11 +36,6 @@ public class LoginActivity extends Activity {
                 btnSignIn.setProgress(1);
                 LoginAsync loginAsync = new LoginAsync(editPassword.getText().toString(),thisAct);
                 loginAsync.execute();
-                prefs = new SecurePreferences(thisAct);
-                prefs.edit().putString("key",editPassword.getText().toString()).commit();
-                String api = prefs.getString("key","null");
-                Toast.makeText(thisAct, "SharedPref "+api, Toast.LENGTH_SHORT).show();
-
             }
         });
     }

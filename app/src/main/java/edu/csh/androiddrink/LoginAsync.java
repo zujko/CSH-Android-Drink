@@ -6,6 +6,7 @@ import android.os.AsyncTask;
 import android.widget.Toast;
 
 import com.dd.processbutton.iml.ActionProcessButton;
+import com.securepreferences.SecurePreferences;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -23,6 +24,7 @@ import java.io.InputStreamReader;
 
 public class LoginAsync extends AsyncTask<Object, String, String>  {
 
+    SecurePreferences prefs;
     private Activity activity;
     private String apiKey;
     private String valid;
@@ -33,6 +35,7 @@ public class LoginAsync extends AsyncTask<Object, String, String>  {
         apiKey = key;
         btnSignIn = (ActionProcessButton) myActivity.findViewById(R.id.btnSignIn);
         activity = myActivity;
+        prefs = new SecurePreferences(activity, "APIKey","key", true);
     }
 
     @Override
@@ -57,15 +60,26 @@ public class LoginAsync extends AsyncTask<Object, String, String>  {
         try{
             JSONObject json = new JSONObject(builder.toString());
             valid = json.getString("message");
+            final Boolean isValid;
+            if(valid.contains("Greetings")){
+                prefs.put("userKey", apiKey);
+                isValid = true;
+            }
+            else{
+                isValid = false;
+            }
+            prefs.put("userKey",apiKey);
             activity.runOnUiThread(new Runnable() {
                 public void run() {
-                    if (!valid.contains("Greetings")){
-                        btnSignIn.setProgress(-1);
+                    if (isValid){
+                        btnSignIn.setProgress(100);
+                        //TODO: Run main activity
                     }
                     else{
-                        btnSignIn.setProgress(100);
+                        btnSignIn.setProgress(0);
+                        Toast.makeText(activity,"Please enter a valid API key", Toast.LENGTH_SHORT).show();
                     }
-                    Toast.makeText(activity, valid, Toast.LENGTH_SHORT).show();
+
                 }
             });
 

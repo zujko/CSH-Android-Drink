@@ -27,7 +27,6 @@ public class LoginAsync extends AsyncTask<Object, String, String>  {
     SecurePreferences prefs;
     private Activity activity;
     private String apiKey;
-    private String valid;
     final ActionProcessButton btnSignIn;
 
 
@@ -56,10 +55,9 @@ public class LoginAsync extends AsyncTask<Object, String, String>  {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         try{
             JSONObject json = new JSONObject(builder.toString());
-            valid = json.getString("message");
+            String valid = json.getString("message");
             final Boolean isValid;
             if(valid.contains("Greetings")){
                 prefs.put("userKey", apiKey);
@@ -68,7 +66,6 @@ public class LoginAsync extends AsyncTask<Object, String, String>  {
             else{
                 isValid = false;
             }
-            prefs.put("userKey",apiKey);
             activity.runOnUiThread(new Runnable() {
                 public void run() {
                     if (isValid){

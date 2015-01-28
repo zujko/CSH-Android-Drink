@@ -29,6 +29,7 @@ public class MainActivity extends Activity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        /* Handles items clicked on the action bar */
         switch(item.getItemId()){
             case R.id.action_refresh:
                 //TODO: Refresh items
@@ -45,6 +46,11 @@ public class MainActivity extends Activity {
         return true;
     }
 
+    /**
+     * Signs the user out by removing the API key from secure preferences and
+     * launching LoginActivity.
+     * @param item logout MenuItem
+     */
     public void onClickLogOut(MenuItem item){
         SecurePreferences prefs = new SecurePreferences(this,"APIKey","key", true);
         prefs.removeValue("userKey");

@@ -13,5 +13,6 @@
         android:title="@string/action_admin" />
     <item
         android:id="@+id/action_logout"
-        android:title="Log Out" />
+        android:title="Sign Out"
+        android:onClick="onClickLogOut"/>
 </menu>

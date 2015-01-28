@@ -1,9 +1,13 @@
 package edu.csh.androiddrink;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
+
+import com.securepreferences.SecurePreferences;
 
 
 public class MainActivity extends Activity {
@@ -40,4 +44,15 @@ public class MainActivity extends Activity {
         }
         return true;
     }
+
+    public void onClickLogOut(MenuItem item){
+        SecurePreferences prefs = new SecurePreferences(this,"APIKey","key", true);
+        prefs.removeValue("userKey");
+        Intent intent = new Intent(this,LoginActivity.class);
+        startActivity(intent);
+        Toast.makeText(this,"Successfully signed out", Toast.LENGTH_SHORT).show();
+        this.finish();
+    }
+
+
 }

@@ -20,7 +20,7 @@
         android:layout_height="wrap_content"
         android:inputType="textPassword"
         android:text=""
-        android:hint="Enter you API key"
+        android:hint="Enter your API key"
         android:layout_below="@+id/linearLayout"
         android:layout_alignLeft="@+id/linearLayout"
         android:layout_alignStart="@+id/linearLayout"

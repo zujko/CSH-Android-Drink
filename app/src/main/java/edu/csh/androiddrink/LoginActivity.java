@@ -21,8 +21,7 @@ public class LoginActivity extends Activity {
         super.onCreate(savedInstanceState);
         SecurePreferences prefs = new SecurePreferences(this,"APIKey","key", true);
         if(prefs.getString("userKey") != null){
-            Intent intent = new Intent();
-            intent.setClass(LoginActivity.this, MainActivity.class);
+            Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
             LoginActivity.this.finish();
         }

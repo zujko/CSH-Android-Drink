@@ -2,6 +2,7 @@ package edu.csh.androiddrink;
 
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
@@ -29,7 +30,6 @@ public class LoginAsync extends AsyncTask<Object, String, String>  {
     private String apiKey;
     final ActionProcessButton btnSignIn;
 
-
     public LoginAsync(String key, Activity myActivity){
         apiKey = key;
         btnSignIn = (ActionProcessButton) myActivity.findViewById(R.id.btnSignIn);
@@ -41,7 +41,7 @@ public class LoginAsync extends AsyncTask<Object, String, String>  {
     protected String doInBackground(Object... params) {
         StringBuilder builder = new StringBuilder();
         HttpClient client = new DefaultHttpClient();
-        HttpGet httpGet = new HttpGet("https://webdrink.csh.rit.edu/api/index.php?request=test/api/:"+apiKey);
+        HttpGet httpGet = new HttpGet("https://webdrink.csh.rit.edu/api/index.php?request=test/api/&api_key="+apiKey);
         try{
             HttpResponse response = client.execute(httpGet);
             HttpEntity entity = response.getEntity();
@@ -70,13 +70,14 @@ public class LoginAsync extends AsyncTask<Object, String, String>  {
                 public void run() {
                     if (isValid){
                         btnSignIn.setProgress(100);
-                        //TODO: Run main activity
+                        Intent intent = new Intent(activity, MainActivity.class);
+                        activity.startActivity(intent);
+                        activity.finish();
                     }
                     else{
-                        btnSignIn.setProgress(0);
-                        Toast.makeText(activity,"Please enter a valid API key", Toast.LENGTH_SHORT).show();
+                        btnSignIn.setProgress(-1);
+                        Toast.makeText(activity,"API key is not valid", Toast.LENGTH_SHORT).show();
                     }
-
                 }
             });
 
@@ -86,7 +87,7 @@ public class LoginAsync extends AsyncTask<Object, String, String>  {
         return null;
     }
 
- }
+}
 
 
 

@@ -59,7 +59,7 @@ public class LoginAsync extends AsyncTask<Object, String, String>  {
             JSONObject json = new JSONObject(builder.toString());
             String valid = json.getString("message");
             final Boolean isValid;
-            /* If the JSONObject is a valid api key, store it in secure preferences
+            /* If the api key is valid, store it in secure preferences
              * and set isValid to true.
              */
             if(valid.contains("Greetings")){

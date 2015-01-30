@@ -15,16 +15,18 @@ import com.securepreferences.SecurePreferences;
 
 public class MainActivity extends FragmentActivity {
 
+
     private MenuItem menuItem;
     ViewPager Tab;
-    TabPageAdapter TabAdapter;
+    TabPageAdapter tabAdapter;
     ActionBar actionBar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        TabAdapter = new TabPageAdapter(getSupportFragmentManager());
+        tabAdapter = new TabPageAdapter(getSupportFragmentManager());
         Tab = (ViewPager)findViewById(R.id.pager);
         Tab.setOnPageChangeListener(
                 new ViewPager.SimpleOnPageChangeListener() {
@@ -33,7 +35,7 @@ public class MainActivity extends FragmentActivity {
                         actionBar = getActionBar();
                         actionBar.setSelectedNavigationItem(position);                    }
                 });
-        Tab.setAdapter(TabAdapter);
+        Tab.setAdapter(tabAdapter);
         actionBar = getActionBar();
         //Enable Tabs on Action Bar
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
@@ -71,10 +73,10 @@ public class MainActivity extends FragmentActivity {
         /* Handles items clicked on the action bar */
         switch(item.getItemId()){
             case R.id.action_refresh:
-                //TODO: Refresh items
                 menuItem = item;
                 menuItem.setActionView(R.layout.action_progress);
                 menuItem.expandActionView();
+                //TODO: Refresh fragments
                 break;
             case R.id.action_settings:
                 //TODO: Open settings activity
@@ -84,6 +86,7 @@ public class MainActivity extends FragmentActivity {
         }
         return true;
     }
+
 
     /**
      * Signs the user out by removing the API key from secure preferences and

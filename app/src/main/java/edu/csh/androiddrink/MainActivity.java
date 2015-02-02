@@ -1,8 +1,7 @@
 package edu.csh.androiddrink;
 
-import android.app.ActionBar;
-import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
@@ -10,54 +9,29 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.astuetz.PagerSlidingTabStrip;
 import com.securepreferences.SecurePreferences;
 
 
 public class MainActivity extends FragmentActivity {
 
-
     private MenuItem menuItem;
-    ViewPager Tab;
-    TabPageAdapter tabAdapter;
-    ActionBar actionBar;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        tabAdapter = new TabPageAdapter(getSupportFragmentManager());
-        Tab = (ViewPager)findViewById(R.id.pager);
-        Tab.setOnPageChangeListener(
-                new ViewPager.SimpleOnPageChangeListener() {
-                    @Override
-                    public void onPageSelected(int position) {
-                        actionBar = getActionBar();
-                        actionBar.setSelectedNavigationItem(position);                    }
-                });
-        Tab.setAdapter(tabAdapter);
-        actionBar = getActionBar();
-        //Enable Tabs on Action Bar
-        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-        ActionBar.TabListener tabListener = new ActionBar.TabListener(){
-            @Override
-            public void onTabReselected(android.app.ActionBar.Tab tab,
-                                        FragmentTransaction ft) {
-                // TODO Auto-generated method stub
-            }
-            @Override
-            public void onTabSelected(ActionBar.Tab tab, FragmentTransaction ft) {
-                Tab.setCurrentItem(tab.getPosition());
-            }
-            @Override
-            public void onTabUnselected(android.app.ActionBar.Tab tab,
-                                        FragmentTransaction ft) {
-                // TODO Auto-generated method stub
-            }};
-        actionBar.addTab(actionBar.newTab().setText("Info").setTabListener(tabListener));
-        actionBar.addTab(actionBar.newTab().setText("Big Drink").setTabListener(tabListener));
-        actionBar.addTab(actionBar.newTab().setText("Little Drink").setTabListener(tabListener));
-        actionBar.addTab(actionBar.newTab().setText("Snack").setTabListener(tabListener));
+
+        ViewPager pager = (ViewPager) findViewById(R.id.pager);
+        pager.setAdapter(new TabPageAdapter(getSupportFragmentManager()));
+
+        PagerSlidingTabStrip tabs = (PagerSlidingTabStrip) findViewById(R.id.tabs);
+
+        tabs.setViewPager(pager);
+
+        tabs.setTextColor(Color.parseColor("#FFFFFF"));
+        tabs.setIndicatorColor(Color.parseColor("#9D4799"));
+        tabs.setIndicatorHeight(7);
 
     }
 

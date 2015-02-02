@@ -1,20 +1,27 @@
 package edu.csh.androiddrink;
 
+import android.content.Context;
 import android.os.AsyncTask;
+import android.view.MenuItem;
 
 import com.google.gson.GsonBuilder;
 
 import java.io.Reader;
 import java.util.ArrayList;
 
-public class SyncAsync extends AsyncTask<Void, Void, String> {
+public class SyncAsync extends AsyncTask<Void, Void, ArrayList<ItemInfo>> {
 
-    public SyncAsync(){
+    Context myContext;
+    MenuItem myItem;
+
+    public SyncAsync(Context context, MenuItem item){
+        myContext = context;
+        myItem = item;
 
     }
 
     @Override
-    protected String doInBackground(Void... params) {
+    protected ArrayList<ItemInfo> doInBackground(Void... params) {
         Reader reader = API.getData();
         Machine machine = new GsonBuilder().create().fromJson(reader, Machine.class);
         MachineData machines = machine.getMachineData();
@@ -22,11 +29,14 @@ public class SyncAsync extends AsyncTask<Void, Void, String> {
         ArrayList<ItemInfo> littleDrinkItems = machines.getLittleItemInfo();
         ArrayList<ItemInfo> snackItems = machines.getSnacktemInfo();
 
-        return null;
+        return bigDrinkItems;
     }
 
     @Override
-    protected void onPostExecute(String strings) {
+    protected void onPostExecute(ArrayList<ItemInfo> items) {
+
+        myItem.collapseActionView();
+        myItem.setActionView(null);
 
     }
 

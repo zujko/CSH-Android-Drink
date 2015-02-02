@@ -12,6 +12,9 @@
         android:id="@+id/action_admin"
         android:title="@string/action_admin" />
     <item
+        android:id="@+id/action_info"
+        android:title="@string/action_info" />
+    <item
         android:id="@+id/action_logout"
         android:title="Sign Out"
         android:onClick="onClickLogOut"/>

@@ -8,7 +8,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import edu.csh.androiddrink.fragments.BigDrink;
 import edu.csh.androiddrink.fragments.LittleDrink;
 import edu.csh.androiddrink.fragments.Snack;
-import edu.csh.androiddrink.fragments.UserInfo;
+
 
 public class TabPageAdapter extends FragmentStatePagerAdapter{
     public TabPageAdapter(FragmentManager fm){
@@ -16,15 +16,26 @@ public class TabPageAdapter extends FragmentStatePagerAdapter{
     }
 
     @Override
+    public CharSequence getPageTitle(int position){
+        switch(position){
+            case 0:
+                return "Big Drink";
+            case 1:
+                return "Little Drink";
+            case 2:
+                return "Snack";
+        }
+        return null;
+    }
+
+    @Override
     public Fragment getItem(int position) {
         switch(position){
             case 0:
-                return new UserInfo();
-            case 1:
                 return new BigDrink();
-            case 2:
+            case 1:
                 return new LittleDrink();
-            case 3:
+            case 2:
                 return new Snack();
         }
         return null;
@@ -32,7 +43,7 @@ public class TabPageAdapter extends FragmentStatePagerAdapter{
 
     @Override
     public int getCount() {
-        return 4;
+        return 3;
     }
 
 }

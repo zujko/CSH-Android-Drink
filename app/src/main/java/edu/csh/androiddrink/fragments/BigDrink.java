@@ -8,13 +8,15 @@ import android.view.ViewGroup;
 
 import edu.csh.androiddrink.R;
 
+
 public class BigDrink extends Fragment {
+
+
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanseState){
-        View bigDrink = inflater.inflate(R.layout.fragment_big_drink, container,false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+       View rootView = inflater.inflate(R.layout.fragment_big_drink, container, false);
 
-        return bigDrink;
+        return rootView;
     }
-
 
 }

@@ -16,12 +16,10 @@ public class ItemInfo {
 
     public ItemInfo(String slotNum, String itemId, String itemName, String itemPrice, String available,
                     String status){
-
         this.itemId = itemId;
         this.itemName = itemName;
         this.itemPrice = itemPrice;
         this.available = available;
-
     }
 
     public String getItemId(){

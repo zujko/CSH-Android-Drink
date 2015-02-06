@@ -31,7 +31,6 @@ public class MainActivity extends FragmentActivity {
         tabs.setTextColor(Color.parseColor("#FFFFFF"));
         tabs.setIndicatorColor(Color.parseColor("#9D4799"));
         tabs.setIndicatorHeight(7);
-
     }
 
     @Override
@@ -59,7 +58,6 @@ public class MainActivity extends FragmentActivity {
         }
         return true;
     }
-
 
     /**
      * Signs the user out by removing the API key from secure preferences and

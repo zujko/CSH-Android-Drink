@@ -8,6 +8,6 @@
     <string name="action_info">Statistics</string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="title_activity_main">Drink</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hello_world">Hello world!</string>
 
 </resources>

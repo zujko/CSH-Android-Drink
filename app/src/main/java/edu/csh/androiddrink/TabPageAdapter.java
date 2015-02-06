@@ -1,9 +1,9 @@
 package edu.csh.androiddrink;
 
 
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.app.ListFragment;
 
 import edu.csh.androiddrink.fragments.BigDrink;
 import edu.csh.androiddrink.fragments.LittleDrink;
@@ -29,7 +29,7 @@ public class TabPageAdapter extends FragmentStatePagerAdapter{
     }
 
     @Override
-    public Fragment getItem(int position) {
+    public ListFragment getItem(int position) {
         switch(position){
             case 0:
                 return new BigDrink();

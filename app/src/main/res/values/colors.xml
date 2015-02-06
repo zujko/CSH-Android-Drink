@@ -2,4 +2,5 @@
     <color name="cshPurple">#9D4799</color>
     <color name="cshPurplePressed">#7E397A</color>
     <color name="cshProgress">#E50565</color>
+    <color name="white">#FFFFFF</color>
 </resources>

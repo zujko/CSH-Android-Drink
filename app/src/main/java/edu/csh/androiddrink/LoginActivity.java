@@ -11,6 +11,8 @@ import android.widget.EditText;
 import com.dd.processbutton.iml.ActionProcessButton;
 import com.securepreferences.SecurePreferences;
 
+import edu.csh.androiddrink.backgroundtasks.LoginAsync;
+
 
 public class LoginActivity extends Activity {
 

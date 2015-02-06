@@ -1,4 +1,4 @@
-package edu.csh.androiddrink;
+package edu.csh.androiddrink.backgroundtasks;
 
 
 import android.app.Activity;
@@ -21,6 +21,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+
+import edu.csh.androiddrink.MainActivity;
+import edu.csh.androiddrink.R;
 
 
 public class LoginAsync extends AsyncTask<Object, String, String>  {

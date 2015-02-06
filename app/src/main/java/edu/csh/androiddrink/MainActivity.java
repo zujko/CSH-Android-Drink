@@ -73,8 +73,9 @@ public class MainActivity extends FragmentActivity implements UserDataOnComplete
      * @param item logout MenuItem
      */
     public void onClickLogOut(MenuItem item){
-        SecurePreferences prefs = new SecurePreferences(this,"APIKey","key", true);
+        SecurePreferences prefs = new SecurePreferences(this,"UserData","key", true);
         prefs.removeValue("userKey");
+        prefs.removeValue("credits");
         Intent intent = new Intent(this,LoginActivity.class);
         startActivity(intent);
         Toast.makeText(this,"Successfully signed out", Toast.LENGTH_SHORT).show();

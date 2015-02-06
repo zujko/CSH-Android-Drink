@@ -2,34 +2,41 @@ package edu.csh.androiddrink;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.securepreferences.SecurePreferences;
+
 import java.util.ArrayList;
 
 public class DrinkAdapter extends ArrayAdapter<ItemInfo> {
     private final Context context;
     private final ArrayList<ItemInfo> item;
+    private SecurePreferences prefs;
 
 
     public DrinkAdapter(Context context, ArrayList<ItemInfo> item) {
         super(context, R.layout.list_layout, item);
         this.context = context;
         this.item = item;
+        prefs = new SecurePreferences(context,"UserData","key",true);
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View rowView = convertView;
         ViewHolder holder = null;
-
+        String credits = prefs.getString("credits");
+        int creditsInt = Integer.parseInt(credits);
+        String itemPr = item.get(position).getItemPrice();
+        int itemPrice = Integer.parseInt(itemPr);
         if(rowView == null){
             LayoutInflater inflater = ((Activity)context).getLayoutInflater();
             rowView = inflater.inflate(R.layout.list_layout, parent,false);
-
             holder = new ViewHolder();
             holder.itemName = (TextView)rowView.findViewById(R.id.firstLine);
             holder.itemPrice = (TextView)rowView.findViewById(R.id.secondLine);
@@ -42,7 +49,15 @@ public class DrinkAdapter extends ArrayAdapter<ItemInfo> {
         ItemInfo items = item.get(position);
 
         holder.itemName.setText(items.getItemName());
-        holder.itemPrice.setText("Price: " + items.getItemPrice());
+        if(creditsInt < itemPrice){
+            holder.itemName.setTextColor(Color.parseColor("#868686"));
+            holder.itemPrice.setTextColor(Color.parseColor("#868686"));
+            rowView.setEnabled(false);
+            rowView.setOnClickListener(null);
+            holder.itemPrice.setText("Price: " + itemPr);
+        } else{
+            holder.itemPrice.setText("Price: " + itemPr);
+        }
         return rowView;
     }
 

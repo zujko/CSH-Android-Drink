@@ -13,9 +13,6 @@ import edu.csh.androiddrink.UserData;
 import edu.csh.androiddrink.UserDataResponse;
 import edu.csh.androiddrink.interfaces.UserDataOnComplete;
 
-/**
- * Created by Z_KO on 2/6/2015.
- */
 public class GetUserInfo extends AsyncTask<Void, Void, UserData> {
 
     private String apiKey;
@@ -39,6 +36,13 @@ public class GetUserInfo extends AsyncTask<Void, Void, UserData> {
 
     @Override
     protected void onPostExecute(UserData info) {
+        if(prefs.getString("credits") == null){
+            prefs.put("credits",info.getCredits());
+        }
+        else{
+            prefs.removeValue("credits");
+            prefs.put("credits",info.getCredits());
+        }
         if (data != null){
             data.onComplete(info);
         }

@@ -16,9 +16,9 @@ public class API {
 
     private static Reader reader =null;
 
-    public static Reader getData(){
+    public static Reader getData(String params){
         try{
-            final String SERVER_URL = "https://webdrink.csh.rit.edu/api/index.php?request=machines/stock/";
+            final String SERVER_URL = "https://webdrink.csh.rit.edu/api/?request="+params;
             DefaultHttpClient httpClient = new DefaultHttpClient();
             HttpGet httpGet = new HttpGet(SERVER_URL);
             HttpResponse response = httpClient.execute(httpGet);

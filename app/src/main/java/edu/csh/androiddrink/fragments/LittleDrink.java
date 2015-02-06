@@ -9,12 +9,12 @@ import android.widget.ListAdapter;
 
 import java.util.ArrayList;
 
-import edu.csh.androiddrink.DataOnComplete;
+import edu.csh.androiddrink.interfaces.MachineDataOnComplete;
 import edu.csh.androiddrink.DrinkAdapter;
 import edu.csh.androiddrink.backgroundtasks.GetMachineItems;
 import edu.csh.androiddrink.ItemInfo;
 
-public class LittleDrink extends ListFragment implements DataOnComplete {
+public class LittleDrink extends ListFragment implements MachineDataOnComplete {
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {

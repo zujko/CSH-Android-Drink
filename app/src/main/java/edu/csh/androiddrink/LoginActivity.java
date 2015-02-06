@@ -21,7 +21,7 @@ public class LoginActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        SecurePreferences prefs = new SecurePreferences(this,"APIKey","key", true);
+        SecurePreferences prefs = new SecurePreferences(this,"UserData","key", true);
         /*
          * If there is already an API key stored, launch main activity
          * else, create the login activity

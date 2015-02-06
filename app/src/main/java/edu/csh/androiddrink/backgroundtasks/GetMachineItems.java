@@ -1,6 +1,5 @@
 package edu.csh.androiddrink.backgroundtasks;
 
-import android.content.Context;
 import android.os.AsyncTask;
 
 import com.google.gson.Gson;
@@ -9,19 +8,18 @@ import com.google.gson.GsonBuilder;
 import java.io.Reader;
 import java.util.ArrayList;
 
-import edu.csh.androiddrink.DataOnComplete;
 import edu.csh.androiddrink.ItemInfo;
 import edu.csh.androiddrink.Machine;
 import edu.csh.androiddrink.MachineData;
+import edu.csh.androiddrink.interfaces.MachineDataOnComplete;
 
 public class GetMachineItems extends AsyncTask<Void, Void, ArrayList<ItemInfo>> {
 
     private int machineInt;
-    private DataOnComplete data;
-    Context myContext;
+    private MachineDataOnComplete data;
 
 
-    public GetMachineItems(DataOnComplete data, int machine){
+    public GetMachineItems(MachineDataOnComplete data, int machine){
         this.data = data;
         this.machineInt = machine;
     }
@@ -29,7 +27,7 @@ public class GetMachineItems extends AsyncTask<Void, Void, ArrayList<ItemInfo>> 
     @Override
     protected ArrayList<ItemInfo> doInBackground(Void... params) {
         Gson gson= new Gson();
-        Reader reader = API.getData();
+        Reader reader = API.getData("machines/stock/");
         Machine machine = new GsonBuilder().create().fromJson(reader, Machine.class);
         MachineData machines = machine.getMachineData();
         switch(machineInt){

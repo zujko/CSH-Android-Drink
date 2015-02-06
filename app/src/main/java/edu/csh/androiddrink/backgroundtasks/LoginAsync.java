@@ -37,7 +37,7 @@ public class LoginAsync extends AsyncTask<Object, String, String>  {
         apiKey = key;
         btnSignIn = (ActionProcessButton) myActivity.findViewById(R.id.btnSignIn);
         activity = myActivity;
-        prefs = new SecurePreferences(activity, "APIKey","key", true);
+        prefs = new SecurePreferences(activity, "UserData","key", true);
     }
 
     @Override

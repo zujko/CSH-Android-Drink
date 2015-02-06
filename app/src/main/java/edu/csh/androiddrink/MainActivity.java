@@ -1,5 +1,6 @@
 package edu.csh.androiddrink;
 
+import android.app.ActionBar;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -12,8 +13,11 @@ import android.widget.Toast;
 import com.astuetz.PagerSlidingTabStrip;
 import com.securepreferences.SecurePreferences;
 
+import edu.csh.androiddrink.backgroundtasks.GetUserInfo;
+import edu.csh.androiddrink.interfaces.UserDataOnComplete;
 
-public class MainActivity extends FragmentActivity {
+
+public class MainActivity extends FragmentActivity implements UserDataOnComplete {
 
     private MenuItem menuItem;
 
@@ -21,6 +25,10 @@ public class MainActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        GetUserInfo userInfo = new GetUserInfo(this,this);
+        userInfo.execute();
+        ActionBar bar = getActionBar();
+        bar.setTitle("CSH Drink");
 
         ViewPager pager = (ViewPager) findViewById(R.id.pager);
         pager.setAdapter(new TabPageAdapter(getSupportFragmentManager()));
@@ -73,5 +81,9 @@ public class MainActivity extends FragmentActivity {
         this.finish();
     }
 
-
+    @Override
+    public void onComplete(UserData data) {
+        ActionBar bar = getActionBar();
+        bar.setSubtitle("Credits: "+data.getCredits());
+    }
 }

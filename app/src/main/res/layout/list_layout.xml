@@ -19,7 +19,7 @@
         android:ellipsize="marquee"
         android:singleLine="true"
         android:text="Description"
-        android:textSize="12sp" />
+        android:textSize="14sp" />
 
     <TextView
         android:id="@+id/firstLine"
@@ -32,7 +32,6 @@
         android:layout_alignWithParentIfMissing="true"
         android:gravity="center_vertical"
         android:text="Example application"
-        android:textSize="16sp" />
-
+        android:textSize="18sp" />
 
 </RelativeLayout> 

@@ -13,13 +13,15 @@ public class ItemInfo {
     private String itemPrice;
     @SerializedName("available")
     private String available;
+    @SerializedName("slot_num")
+    private String slotNum;
 
-    public ItemInfo(String slotNum, String itemId, String itemName, String itemPrice, String available,
-                    String status){
+    public ItemInfo(String slotNum, String itemId, String itemName, String itemPrice, String available){
         this.itemId = itemId;
         this.itemName = itemName;
         this.itemPrice = itemPrice;
         this.available = available;
+        this.slotNum= slotNum;
     }
 
     public String getItemId(){
@@ -46,6 +48,13 @@ public class ItemInfo {
     }
     public void setAvailable(String available){
         this.available = available;
+    }
+
+    public String getSlotNum(){
+        return slotNum;
+    }
+    public void setSlotNum(String slotNum){
+        this.slotNum=slotNum;
     }
 
 }

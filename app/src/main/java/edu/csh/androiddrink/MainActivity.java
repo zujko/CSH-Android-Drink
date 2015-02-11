@@ -1,11 +1,10 @@
 package edu.csh.androiddrink;
 
-import android.app.ActionBar;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -17,7 +16,7 @@ import edu.csh.androiddrink.backgroundtasks.GetUserInfo;
 import edu.csh.androiddrink.interfaces.UserDataOnComplete;
 
 
-public class MainActivity extends FragmentActivity implements UserDataOnComplete {
+public class MainActivity extends ActionBarActivity implements UserDataOnComplete {
 
     private MenuItem menuItem;
 
@@ -27,7 +26,7 @@ public class MainActivity extends FragmentActivity implements UserDataOnComplete
         setContentView(R.layout.activity_main);
         GetUserInfo userInfo = new GetUserInfo(this,this);
         userInfo.execute();
-        ActionBar bar = getActionBar();
+        android.support.v7.app.ActionBar bar = getSupportActionBar();
         bar.setTitle("CSH Drink");
 
         ViewPager pager = (ViewPager) findViewById(R.id.pager);
@@ -84,7 +83,7 @@ public class MainActivity extends FragmentActivity implements UserDataOnComplete
 
     @Override
     public void onComplete(UserData data) {
-        ActionBar bar = getActionBar();
+        android.support.v7.app.ActionBar bar = getSupportActionBar();
         bar.setSubtitle("Credits: "+data.getCredits());
     }
 }

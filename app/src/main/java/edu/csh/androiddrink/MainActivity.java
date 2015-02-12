@@ -35,7 +35,6 @@ public class MainActivity extends ActionBarActivity implements UserDataOnComplet
         PagerSlidingTabStrip tabs = (PagerSlidingTabStrip) findViewById(R.id.tabs);
 
         tabs.setViewPager(pager);
-        tabs.setTextColor(Color.parseColor("#FFFFFF"));
         tabs.setIndicatorColor(Color.parseColor("#9D4799"));
         tabs.setIndicatorHeight(7);
     }

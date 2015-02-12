@@ -36,7 +36,6 @@
         custom:pb_colorComplete="@color/green_complete"
         custom:pb_colorNormal="@color/cshPurple"
         custom:pb_colorPressed="@color/cshPurplePressed"
-        custom:pb_colorProgress="@color/cshProgress"
         custom:pb_textComplete="Success"
         custom:pb_textProgress="Signing In..."
         custom:pb_textError="Error"

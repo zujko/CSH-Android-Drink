@@ -10,14 +10,11 @@ public class UserData {
     private String credits;
     @SerializedName("admin")
     private String admin;
-    @SerializedName("ibutton")
-    private String ibutton;
 
-    public UserData(String uid,String credits,String admin,String ibutton){
+    public UserData(String uid,String credits,String admin){
         this.admin = admin;
         this.credits = credits;
         this.uid = uid;
-        this.ibutton = ibutton;
     }
 
     public String getUid(){
@@ -40,8 +37,5 @@ public class UserData {
     public void setAdmin(String admin){
         this.admin = admin;
     }
-
-    public String getIbutton(){return ibutton;}
-    public void setIbutton(String ibutton){this.ibutton = ibutton;}
 
 }

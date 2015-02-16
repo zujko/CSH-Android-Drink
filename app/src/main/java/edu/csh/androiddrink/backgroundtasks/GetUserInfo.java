@@ -46,9 +46,6 @@ public class GetUserInfo extends AsyncTask<Void, Void, UserData> {
         if (data != null){
             data.onComplete(info);
         }
-        if(prefs.getString("ibutton") == null){
-            prefs.put("ibutton",info.getIbutton());
-        }
 
     }
 

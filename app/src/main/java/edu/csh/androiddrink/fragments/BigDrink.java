@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -23,7 +24,6 @@ import edu.csh.androiddrink.interfaces.MachineDataOnComplete;
 public class BigDrink extends ListFragment implements MachineDataOnComplete {
 
     ArrayList<ItemInfo> itemInfoArrayList;
-    ItemInfo currentItem;
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
@@ -38,7 +38,6 @@ public class BigDrink extends ListFragment implements MachineDataOnComplete {
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
-        currentItem = itemInfoArrayList.get(position);
         final AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
         alert.setTitle("Drop a drink?");
         alert.setMessage("You are about to drop a "+itemInfoArrayList.get(position).getItemName()+
@@ -55,6 +54,7 @@ public class BigDrink extends ListFragment implements MachineDataOnComplete {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 //TODO: Send POST request to drop drink
+                Toast.makeText(getActivity(),"DROPPED",Toast.LENGTH_LONG).show();
             }
         });
         alert.show();

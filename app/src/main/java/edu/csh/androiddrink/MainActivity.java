@@ -74,6 +74,7 @@ public class MainActivity extends ActionBarActivity implements UserDataOnComplet
         SecurePreferences prefs = new SecurePreferences(this,"UserData","key", true);
         prefs.removeValue("userKey");
         prefs.removeValue("credits");
+        prefs.removeValue("ibutton");
         Intent intent = new Intent(this,LoginActivity.class);
         startActivity(intent);
         Toast.makeText(this,"Successfully signed out", Toast.LENGTH_SHORT).show();

@@ -38,6 +38,7 @@ public class GetUserInfo extends AsyncTask<Void, Void, UserData> {
     protected void onPostExecute(UserData info) {
         if(prefs.getString("credits") == null){
             prefs.put("credits",info.getCredits());
+            prefs.put("ibutton",info.getIbutton());
         }
         else{
             prefs.removeValue("credits");

@@ -50,6 +50,7 @@ public class DrinkAdapter extends ArrayAdapter<ItemInfo> {
 
         holder.itemName.setText(items.getItemName());
         if(creditsInt < itemPrice){
+            //TODO: Also grey out items that are not available
             holder.itemName.setTextColor(Color.parseColor("#868686"));
             holder.itemPrice.setTextColor(Color.parseColor("#868686"));
             rowView.setEnabled(false);

@@ -18,6 +18,7 @@ import edu.csh.androiddrink.DrinkAdapter;
 import edu.csh.androiddrink.ItemInfo;
 import edu.csh.androiddrink.backgroundtasks.DropDrinkAsync;
 import edu.csh.androiddrink.backgroundtasks.GetMachineItems;
+import edu.csh.androiddrink.backgroundtasks.GetUserInfo;
 import edu.csh.androiddrink.interfaces.MachineDataOnComplete;
 
 
@@ -56,7 +57,9 @@ public class BigDrink extends ListFragment implements MachineDataOnComplete {
             public void onClick(DialogInterface dialog, int which) {
                 DropDrinkAsync drop = new DropDrinkAsync("2", item.getSlotNum(),text.getText().toString(),getActivity());
                 drop.execute();
-                //TODO: Refresh displayed credit value
+                GetUserInfo info = new GetUserInfo(null,null,getActivity(),null);
+                info.execute();
+
             }
         });
         alert.show();

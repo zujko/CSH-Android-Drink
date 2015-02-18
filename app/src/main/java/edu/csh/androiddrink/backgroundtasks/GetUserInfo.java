@@ -2,6 +2,7 @@ package edu.csh.androiddrink.backgroundtasks;
 
 import android.app.Activity;
 import android.os.AsyncTask;
+import android.view.MenuItem;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -9,19 +10,25 @@ import com.securepreferences.SecurePreferences;
 
 import java.io.Reader;
 
+import edu.csh.androiddrink.MainActivity;
 import edu.csh.androiddrink.UserData;
 import edu.csh.androiddrink.UserDataResponse;
 import edu.csh.androiddrink.interfaces.UserDataOnComplete;
 
-public class GetUserInfo extends AsyncTask<Void, Void, UserData> {
+public class GetUserInfo extends AsyncTask<Void, Void, UserData>{
 
     private String apiKey;
     SecurePreferences prefs;
     private UserDataOnComplete data;
+    private MainActivity mainAct;
+    private Activity act;
+    private MenuItem item;
 
 
-    public GetUserInfo(UserDataOnComplete data,Activity act){
+    public GetUserInfo(UserDataOnComplete data,MainActivity mainAct, Activity act,MenuItem item){
         this.data = data;
+        this.mainAct = mainAct;
+        this.item = item;
         prefs  = new SecurePreferences(act,"UserData","key", true);
         apiKey = prefs.getString("userKey");
     }
@@ -47,6 +54,15 @@ public class GetUserInfo extends AsyncTask<Void, Void, UserData> {
         if (data != null){
             data.onComplete(info);
         }
+        if(mainAct != null){
+            mainAct.refreshCredits();
+        }
+        MainActivity.credits = true;
+        if(item != null) {
+            item.collapseActionView();
+            item.setActionView(null);
+        }
+
 
     }
 

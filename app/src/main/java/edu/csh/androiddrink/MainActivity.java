@@ -19,14 +19,33 @@ import edu.csh.androiddrink.interfaces.UserDataOnComplete;
 public class MainActivity extends ActionBarActivity implements UserDataOnComplete {
 
     private MenuItem menuItem;
+    android.support.v7.app.ActionBar bar;
+    public static boolean credits = false;
+    SecurePreferences prefs;
+
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        if(credits){
+            refreshCredits();
+            credits = false;
+        }
+    }
+
+    public void refreshCredits(){
+        prefs = new SecurePreferences(this,"UserData","key", true);
+        bar = getSupportActionBar();
+        bar.invalidateOptionsMenu();
+        bar.setSubtitle("Credits: "+prefs.getString("credits"));
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        GetUserInfo userInfo = new GetUserInfo(this,this);
+        GetUserInfo userInfo = new GetUserInfo(this,this,this,null);
         userInfo.execute();
-        android.support.v7.app.ActionBar bar = getSupportActionBar();
+        bar = getSupportActionBar();
         bar.setTitle("CSH Drink");
 
         ViewPager pager = (ViewPager) findViewById(R.id.pager);
@@ -54,7 +73,11 @@ public class MainActivity extends ActionBarActivity implements UserDataOnComplet
                 menuItem = item;
                 menuItem.setActionView(R.layout.action_progress);
                 menuItem.expandActionView();
-                //TODO: Refresh fragments
+                GetUserInfo info = new GetUserInfo(null,this,this,item);
+                info.execute();
+                ViewPager pager = (ViewPager) findViewById(R.id.pager);
+                pager.setAdapter(new TabPageAdapter(getSupportFragmentManager()));
+                //TODO: Make sure refresh animation stops after fragments are created
                 break;
             case R.id.action_settings:
                 //TODO: Open settings activity
@@ -81,9 +104,11 @@ public class MainActivity extends ActionBarActivity implements UserDataOnComplet
         this.finish();
     }
 
+
+
     @Override
     public void onComplete(UserData data) {
-        android.support.v7.app.ActionBar bar = getSupportActionBar();
+        bar = getSupportActionBar();
         bar.setSubtitle("Credits: "+data.getCredits());
     }
 }

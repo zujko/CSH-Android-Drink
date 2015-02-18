@@ -11,14 +11,14 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import edu.csh.androiddrink.interfaces.MachineDataOnComplete;
 import edu.csh.androiddrink.DrinkAdapter;
-import edu.csh.androiddrink.backgroundtasks.GetMachineItems;
 import edu.csh.androiddrink.ItemInfo;
+import edu.csh.androiddrink.backgroundtasks.DropDrinkAsync;
+import edu.csh.androiddrink.backgroundtasks.GetMachineItems;
+import edu.csh.androiddrink.interfaces.MachineDataOnComplete;
 
 public class Snack extends ListFragment implements MachineDataOnComplete {
 
@@ -43,6 +43,7 @@ public class Snack extends ListFragment implements MachineDataOnComplete {
     public void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
         final AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
+        final ItemInfo item = itemInfoArrayList.get(position);
         alert.setTitle("Drop a snack?");
         alert.setMessage("You are about to drop a "+itemInfoArrayList.get(position).getItemName()+
                 "\n\nEnter seconds until drop");
@@ -57,8 +58,9 @@ public class Snack extends ListFragment implements MachineDataOnComplete {
         }).setPositiveButton("Drop!", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                //TODO: Send POST request to drop drink
-                Toast.makeText(getActivity(), "DROPPED", Toast.LENGTH_LONG).show();
+                DropDrinkAsync drop = new DropDrinkAsync("3", item.getSlotNum(),text.getText().toString(),getActivity());
+                drop.execute();
+                //TODO: Refresh displayed credit value
             }
         });
         alert.show();

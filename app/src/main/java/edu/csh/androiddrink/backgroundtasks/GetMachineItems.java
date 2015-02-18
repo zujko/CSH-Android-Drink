@@ -44,7 +44,6 @@ public class GetMachineItems extends AsyncTask<Void, Void, ArrayList<ItemInfo>> 
                 System.out.println("RETURNING NULL");
                 return null;
         }
-
     }
 
     @Override
@@ -52,7 +51,6 @@ public class GetMachineItems extends AsyncTask<Void, Void, ArrayList<ItemInfo>> 
         if (data != null){
             data.onComplete(items);
         }
-
 
     }
 

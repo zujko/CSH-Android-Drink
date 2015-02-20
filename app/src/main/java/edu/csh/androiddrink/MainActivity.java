@@ -19,7 +19,7 @@ import edu.csh.androiddrink.jsonjavaobjects.UserData;
 
 public class MainActivity extends ActionBarActivity implements UserDataOnComplete {
 
-    private MenuItem menuItem;
+    public static MenuItem menuItem = null;
     android.support.v7.app.ActionBar bar;
     public static boolean credits = false;
     SecurePreferences prefs;
@@ -44,7 +44,7 @@ public class MainActivity extends ActionBarActivity implements UserDataOnComplet
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        GetUserInfo userInfo = new GetUserInfo(this,this,this,null);
+        GetUserInfo userInfo = new GetUserInfo(this,this,this);
         userInfo.execute();
         bar = getSupportActionBar();
         bar.setTitle("CSH Drink");
@@ -74,11 +74,10 @@ public class MainActivity extends ActionBarActivity implements UserDataOnComplet
                 menuItem = item;
                 menuItem.setActionView(R.layout.action_progress);
                 menuItem.expandActionView();
-                GetUserInfo info = new GetUserInfo(null,this,this,item);
+                GetUserInfo info = new GetUserInfo(null,this,this);
                 info.execute();
                 ViewPager pager = (ViewPager) findViewById(R.id.pager);
                 pager.setAdapter(new TabPageAdapter(getSupportFragmentManager()));
-                //TODO: Make sure refresh animation stops after fragments are created
                 break;
             case R.id.action_settings:
                 //TODO: Open settings activity

@@ -57,7 +57,7 @@ public class BigDrink extends ListFragment implements MachineDataOnComplete {
             public void onClick(DialogInterface dialog, int which) {
                 DropDrinkAsync drop = new DropDrinkAsync("2", item.getSlotNum(),text.getText().toString(),getActivity());
                 drop.execute();
-                GetUserInfo info = new GetUserInfo(null,null,getActivity(),null);
+                GetUserInfo info = new GetUserInfo(null,null,getActivity());
                 info.execute();
 
             }

@@ -61,7 +61,7 @@ public class Snack extends ListFragment implements MachineDataOnComplete {
             public void onClick(DialogInterface dialog, int which) {
                 DropDrinkAsync drop = new DropDrinkAsync("3", item.getSlotNum(),text.getText().toString(),getActivity());
                 drop.execute();
-                GetUserInfo info = new GetUserInfo(null,null,getActivity(),null);
+                GetUserInfo info = new GetUserInfo(null,null,getActivity());
                 info.execute();
             }
         });
@@ -73,7 +73,6 @@ public class Snack extends ListFragment implements MachineDataOnComplete {
         super.onActivityCreated(savedInstanceState);
         GetMachineItems sync = new GetMachineItems(this,3);
         sync.execute();
-
     }
 
     @Override

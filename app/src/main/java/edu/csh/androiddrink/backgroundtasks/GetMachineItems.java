@@ -7,6 +7,7 @@ import com.google.gson.GsonBuilder;
 import java.io.Reader;
 import java.util.ArrayList;
 
+import edu.csh.androiddrink.MainActivity;
 import edu.csh.androiddrink.jsonjavaobjects.ItemInfo;
 import edu.csh.androiddrink.jsonjavaobjects.Machine;
 import edu.csh.androiddrink.jsonjavaobjects.MachineData;
@@ -44,6 +45,10 @@ public class GetMachineItems extends AsyncTask<Void, Void, ArrayList<ItemInfo>> 
     protected void onPostExecute(ArrayList<ItemInfo> items) {
         if (data != null){
             data.onComplete(items);
+        }
+        if(MainActivity.menuItem != null){
+            MainActivity.menuItem.collapseActionView();
+            MainActivity.menuItem.setActionView(null);
         }
 
     }

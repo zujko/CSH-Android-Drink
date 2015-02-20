@@ -52,6 +52,11 @@ public class GetUserInfo extends AsyncTask<Void, Void, UserData>{
             mainAct.refreshCredits();
         }
         MainActivity.credits = true;
+        if(MainActivity.bar != null){
+            MainActivity.bar.invalidateOptionsMenu();
+            MainActivity.bar.setSubtitle("Credits: "+prefs.getString("credits"));
+        }
+
     }
 
 }

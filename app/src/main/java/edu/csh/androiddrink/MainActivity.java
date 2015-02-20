@@ -20,13 +20,16 @@ import edu.csh.androiddrink.jsonjavaobjects.UserData;
 public class MainActivity extends ActionBarActivity implements UserDataOnComplete {
 
     public static MenuItem menuItem = null;
-    android.support.v7.app.ActionBar bar;
+    public static android.support.v7.app.ActionBar bar = null;
     public static boolean credits = false;
+    ViewPager pager;
     SecurePreferences prefs;
 
     @Override
     protected void onPostResume() {
         super.onPostResume();
+        pager = (ViewPager) findViewById(R.id.pager);
+        pager.setAdapter(new TabPageAdapter(getSupportFragmentManager()));
         if(credits){
             refreshCredits();
             credits = false;
@@ -49,7 +52,7 @@ public class MainActivity extends ActionBarActivity implements UserDataOnComplet
         bar = getSupportActionBar();
         bar.setTitle("CSH Drink");
 
-        ViewPager pager = (ViewPager) findViewById(R.id.pager);
+        pager = (ViewPager) findViewById(R.id.pager);
         pager.setAdapter(new TabPageAdapter(getSupportFragmentManager()));
 
         PagerSlidingTabStrip tabs = (PagerSlidingTabStrip) findViewById(R.id.tabs);
@@ -76,7 +79,7 @@ public class MainActivity extends ActionBarActivity implements UserDataOnComplet
                 menuItem.expandActionView();
                 GetUserInfo info = new GetUserInfo(null,this,this);
                 info.execute();
-                ViewPager pager = (ViewPager) findViewById(R.id.pager);
+                pager = (ViewPager) findViewById(R.id.pager);
                 pager.setAdapter(new TabPageAdapter(getSupportFragmentManager()));
                 break;
             case R.id.action_settings:

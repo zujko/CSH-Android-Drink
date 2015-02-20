@@ -4,7 +4,6 @@ package edu.csh.androiddrink.backgroundtasks;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.widget.Toast;
 
 import com.dd.processbutton.iml.ActionProcessButton;
 import com.securepreferences.SecurePreferences;
@@ -22,6 +21,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
+import de.keyboardsurfer.android.widget.crouton.Crouton;
+import de.keyboardsurfer.android.widget.crouton.Style;
 import edu.csh.androiddrink.MainActivity;
 import edu.csh.androiddrink.R;
 
@@ -60,7 +61,7 @@ public class LoginAsync extends AsyncTask<Object, String, String>  {
         }
         try{
             JSONObject json = new JSONObject(builder.toString());
-            String valid = json.getString("message");
+            final String valid = json.getString("message");
             final Boolean isValid;
             /* If the api key is valid, store it in secure preferences
              * and set isValid to true.
@@ -85,7 +86,7 @@ public class LoginAsync extends AsyncTask<Object, String, String>  {
                     }
                     else{
                         btnSignIn.setProgress(-1);
-                        Toast.makeText(activity,"API key is not valid", Toast.LENGTH_SHORT).show();
+                        Crouton.makeText(activity, valid, Style.ALERT);
                     }
                 }
             });

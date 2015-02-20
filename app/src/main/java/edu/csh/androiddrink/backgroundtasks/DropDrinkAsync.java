@@ -2,7 +2,6 @@ package edu.csh.androiddrink.backgroundtasks;
 
 import android.app.Activity;
 import android.os.AsyncTask;
-import android.widget.Toast;
 
 import com.securepreferences.SecurePreferences;
 
@@ -14,13 +13,19 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.util.EntityUtils;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DropDrinkAsync extends AsyncTask<Void, Void, Void> {
+import de.keyboardsurfer.android.widget.crouton.Crouton;
+import de.keyboardsurfer.android.widget.crouton.Style;
+
+public class DropDrinkAsync extends AsyncTask<Void, Void, String> {
 
     private String machine_id;
     private String slot_num;
@@ -36,11 +41,11 @@ public class DropDrinkAsync extends AsyncTask<Void, Void, Void> {
 
 
     @Override
-    protected Void doInBackground(Void... params) {
+    protected String doInBackground(Void... params) {
         SecurePreferences prefs = new SecurePreferences(act,"UserData","key", true);
         HttpClient client = new DefaultHttpClient();
         HttpPost post = new HttpPost("https://webdrink.csh.rit.edu/api/index.php?request=drops/drop");
-        List<NameValuePair> pairs = new ArrayList<NameValuePair>();
+        List<NameValuePair> pairs = new ArrayList<>();
         pairs.add(new BasicNameValuePair("machine_id", machine_id));
         pairs.add(new BasicNameValuePair("slot_num",slot_num));
         pairs.add(new BasicNameValuePair("delay",delay));
@@ -48,17 +53,24 @@ public class DropDrinkAsync extends AsyncTask<Void, Void, Void> {
         try {
             post.setEntity(new UrlEncodedFormEntity(pairs));
             HttpResponse response = client.execute(post);
-        } catch (UnsupportedEncodingException | ClientProtocolException e) {
-            e.printStackTrace();
+            String responseBody = EntityUtils.toString(response.getEntity());
+            JSONObject obj = new JSONObject(responseBody);
+            return obj.getString("status");
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
             e.printStackTrace();
         }
         return null;
     }
 
     @Override
-    protected void onPostExecute(Void aVoid) {
-        super.onPostExecute(aVoid);
-        Toast.makeText(act,"Dropping",Toast.LENGTH_SHORT).show();
+    protected void onPostExecute(String status) {
+        super.onPostExecute(status);
+        if(status.equals("true")){
+            Crouton.makeText(act,"Dropping your drink in "+delay+" seconds", Style.CONFIRM).show();
+        }else{
+            Crouton.makeText(act,"Error dropping drink",Style.ALERT).show();
+        }
     }
 }

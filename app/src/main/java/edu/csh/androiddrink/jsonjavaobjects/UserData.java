@@ -1,4 +1,4 @@
-package edu.csh.androiddrink;
+package edu.csh.androiddrink.jsonjavaobjects;
 
 import com.google.gson.annotations.SerializedName;
 

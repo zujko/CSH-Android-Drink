@@ -13,6 +13,8 @@ import com.securepreferences.SecurePreferences;
 
 import java.util.ArrayList;
 
+import edu.csh.androiddrink.jsonjavaobjects.ItemInfo;
+
 public class DrinkAdapter extends ArrayAdapter<ItemInfo> {
     private final Context context;
     private final ArrayList<ItemInfo> item;

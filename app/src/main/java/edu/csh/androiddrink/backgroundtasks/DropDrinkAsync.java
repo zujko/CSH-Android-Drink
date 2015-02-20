@@ -37,7 +37,6 @@ public class DropDrinkAsync extends AsyncTask<Void, Void, String> {
         this.act = act;
     }
 
-
     @Override
     protected String doInBackground(Void... params) {
         SecurePreferences prefs = new SecurePreferences(act,"UserData","key", true);

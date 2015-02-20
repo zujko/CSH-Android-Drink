@@ -15,7 +15,7 @@ import android.widget.ListView;
 import java.util.ArrayList;
 
 import edu.csh.androiddrink.DrinkAdapter;
-import edu.csh.androiddrink.ItemInfo;
+import edu.csh.androiddrink.jsonjavaobjects.ItemInfo;
 import edu.csh.androiddrink.backgroundtasks.DropDrinkAsync;
 import edu.csh.androiddrink.backgroundtasks.GetMachineItems;
 import edu.csh.androiddrink.backgroundtasks.GetUserInfo;

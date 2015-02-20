@@ -4,15 +4,14 @@ import android.app.Activity;
 import android.os.AsyncTask;
 import android.view.MenuItem;
 
-import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.securepreferences.SecurePreferences;
 
 import java.io.Reader;
 
 import edu.csh.androiddrink.MainActivity;
-import edu.csh.androiddrink.UserData;
-import edu.csh.androiddrink.UserDataResponse;
+import edu.csh.androiddrink.jsonjavaobjects.UserData;
+import edu.csh.androiddrink.jsonjavaobjects.UserDataResponse;
 import edu.csh.androiddrink.interfaces.UserDataOnComplete;
 
 public class GetUserInfo extends AsyncTask<Void, Void, UserData>{
@@ -35,7 +34,6 @@ public class GetUserInfo extends AsyncTask<Void, Void, UserData>{
 
     @Override
     protected UserData doInBackground(Void... params) {
-        Gson gson= new Gson();
         Reader reader = API.getData("users/info&api_key="+apiKey);
         UserDataResponse response = new GsonBuilder().create().fromJson(reader, UserDataResponse.class);
         return response.getUserData();
@@ -45,7 +43,6 @@ public class GetUserInfo extends AsyncTask<Void, Void, UserData>{
     protected void onPostExecute(UserData info) {
         if(prefs.getString("credits") == null){
             prefs.put("credits",info.getCredits());
-            prefs.put("ibutton",info.getIbutton());
         }
         else{
             prefs.removeValue("credits");

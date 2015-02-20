@@ -14,6 +14,7 @@ import com.securepreferences.SecurePreferences;
 
 import edu.csh.androiddrink.backgroundtasks.GetUserInfo;
 import edu.csh.androiddrink.interfaces.UserDataOnComplete;
+import edu.csh.androiddrink.jsonjavaobjects.UserData;
 
 
 public class MainActivity extends ActionBarActivity implements UserDataOnComplete {
@@ -97,7 +98,6 @@ public class MainActivity extends ActionBarActivity implements UserDataOnComplet
         SecurePreferences prefs = new SecurePreferences(this,"UserData","key", true);
         prefs.removeValue("userKey");
         prefs.removeValue("credits");
-        prefs.removeValue("ibutton");
         Intent intent = new Intent(this,LoginActivity.class);
         startActivity(intent);
         Toast.makeText(this,"Successfully signed out", Toast.LENGTH_SHORT).show();

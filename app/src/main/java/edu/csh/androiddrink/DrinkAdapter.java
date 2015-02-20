@@ -49,14 +49,17 @@ public class DrinkAdapter extends ArrayAdapter<ItemInfo> {
         ItemInfo items = item.get(position);
 
         holder.itemName.setText(items.getItemName());
-        if(creditsInt < itemPrice){
-            //TODO: Also grey out items that are not available
+        if(creditsInt < itemPrice || items.getAvailable().equals("0")){
             holder.itemName.setTextColor(Color.parseColor("#868686"));
             holder.itemPrice.setTextColor(Color.parseColor("#868686"));
-            rowView.setEnabled(false);
-            rowView.setOnClickListener(null);
+            rowView.setEnabled(true);
+            rowView.setClickable(true);
             holder.itemPrice.setText("Price: " + itemPr);
         } else{
+            holder.itemName.setTextColor(Color.parseColor("#FFFFFF"));
+            holder.itemPrice.setTextColor(Color.parseColor("#FFFFFF"));
+            rowView.setEnabled(false);
+            rowView.setClickable(false);
             holder.itemPrice.setText("Price: " + itemPr);
         }
         return rowView;

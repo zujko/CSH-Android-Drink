@@ -104,8 +104,6 @@ public class MainActivity extends ActionBarActivity implements UserDataOnComplet
         this.finish();
     }
 
-
-
     @Override
     public void onComplete(UserData data) {
         bar = getSupportActionBar();

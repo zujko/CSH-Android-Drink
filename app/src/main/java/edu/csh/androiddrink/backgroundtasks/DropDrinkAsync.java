@@ -7,7 +7,6 @@ import com.securepreferences.SecurePreferences;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
-import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
@@ -18,7 +17,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,6 +44,16 @@ public class DropDrinkAsync extends AsyncTask<Void, Void, String> {
         HttpClient client = new DefaultHttpClient();
         HttpPost post = new HttpPost("https://webdrink.csh.rit.edu/api/index.php?request=drops/drop");
         List<NameValuePair> pairs = new ArrayList<>();
+        act.runOnUiThread(new Runnable() {
+            public void run() {
+                if(delay.equals("") || delay.equals("1")){
+                    Crouton.makeText(act,"Preparing to drop drink in 1 second",Style.INFO).show();
+                }
+                else{
+                    Crouton.makeText(act,"Preparing to drop drink in "+delay+" seconds",Style.INFO).show();
+                }
+            }
+        });
         pairs.add(new BasicNameValuePair("machine_id", machine_id));
         pairs.add(new BasicNameValuePair("slot_num",slot_num));
         pairs.add(new BasicNameValuePair("delay",delay));
@@ -68,8 +76,9 @@ public class DropDrinkAsync extends AsyncTask<Void, Void, String> {
     protected void onPostExecute(String status) {
         super.onPostExecute(status);
         if(status.equals("true")){
-            Crouton.makeText(act,"Dropping your drink in "+delay+" seconds", Style.CONFIRM).show();
-        }else{
+            Crouton.makeText(act,"Drink dropped!",Style.CONFIRM).show();
+        }
+        else{
             Crouton.makeText(act,"Error dropping drink",Style.ALERT).show();
         }
     }

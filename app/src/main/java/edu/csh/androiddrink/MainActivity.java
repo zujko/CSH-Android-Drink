@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.astuetz.PagerSlidingTabStrip;
 import com.securepreferences.SecurePreferences;
 
+import de.keyboardsurfer.android.widget.crouton.Crouton;
 import edu.csh.androiddrink.backgroundtasks.GetUserInfo;
 import edu.csh.androiddrink.interfaces.UserDataOnComplete;
 import edu.csh.androiddrink.jsonjavaobjects.UserData;
@@ -104,6 +105,12 @@ public class MainActivity extends ActionBarActivity implements UserDataOnComplet
         startActivity(intent);
         Toast.makeText(this,"Successfully signed out", Toast.LENGTH_SHORT).show();
         this.finish();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Crouton.cancelAllCroutons();
     }
 
     @Override

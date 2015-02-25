@@ -1,7 +1,10 @@
 package edu.csh.androiddrink;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
@@ -13,6 +16,7 @@ import com.astuetz.PagerSlidingTabStrip;
 import com.securepreferences.SecurePreferences;
 
 import de.keyboardsurfer.android.widget.crouton.Crouton;
+import de.keyboardsurfer.android.widget.crouton.Style;
 import edu.csh.androiddrink.backgroundtasks.GetUserInfo;
 import edu.csh.androiddrink.interfaces.UserDataOnComplete;
 import edu.csh.androiddrink.jsonjavaobjects.UserData;
@@ -23,17 +27,25 @@ public class MainActivity extends ActionBarActivity implements UserDataOnComplet
     public static MenuItem menuItem = null;
     public static android.support.v7.app.ActionBar bar = null;
     public static boolean credits = false;
+    public static boolean  isConnectedToNetwork;
+    PagerSlidingTabStrip tabs = null;
     ViewPager pager;
     SecurePreferences prefs;
 
     @Override
     protected void onPostResume() {
         super.onPostResume();
-        pager = (ViewPager) findViewById(R.id.pager);
-        pager.setAdapter(new TabPageAdapter(getSupportFragmentManager()));
-        if(credits){
-            refreshCredits();
-            credits = false;
+        isConnectedToNetwork = isConnectedToNetwork();
+        if(isConnectedToNetwork){
+            pager = (ViewPager) findViewById(R.id.pager);
+            pager.setAdapter(new TabPageAdapter(getSupportFragmentManager()));
+            if(credits){
+                refreshCredits();
+                credits = false;
+            }
+        }else{
+            Crouton.makeText(this,"Not connected to a network", Style.ALERT).show();
+            Crouton.makeText(this,"Please connect to a network and refresh",Style.ALERT).show();
         }
     }
 
@@ -44,23 +56,40 @@ public class MainActivity extends ActionBarActivity implements UserDataOnComplet
         bar.setSubtitle("Credits: "+prefs.getString("credits"));
     }
 
+    private boolean isConnectedToNetwork(){
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        GetUserInfo userInfo = new GetUserInfo(this,this,this);
-        userInfo.execute();
-        bar = getSupportActionBar();
-        bar.setTitle("CSH Drink");
+        isConnectedToNetwork = isConnectedToNetwork();
+        if(isConnectedToNetwork){
+            GetUserInfo userInfo = new GetUserInfo(this,this,this);
+            userInfo.execute();
+            bar = getSupportActionBar();
+            bar.setTitle("CSH Drink");
 
-        pager = (ViewPager) findViewById(R.id.pager);
-        pager.setAdapter(new TabPageAdapter(getSupportFragmentManager()));
+            pager = (ViewPager) findViewById(R.id.pager);
+            pager.setAdapter(new TabPageAdapter(getSupportFragmentManager()));
 
-        PagerSlidingTabStrip tabs = (PagerSlidingTabStrip) findViewById(R.id.tabs);
+            tabs = (PagerSlidingTabStrip) findViewById(R.id.tabs);
 
-        tabs.setViewPager(pager);
-        tabs.setIndicatorColor(Color.parseColor("#9D4799"));
-        tabs.setIndicatorHeight(7);
+            tabs.setViewPager(pager);
+            tabs.setIndicatorColor(Color.parseColor("#9D4799"));
+            tabs.setIndicatorHeight(7);
+
+        }else{
+            Crouton.makeText(this,"Not connected to a network", Style.ALERT).show();
+            bar = getSupportActionBar();
+            bar.setTitle("CSH Drink");
+
+            Crouton.makeText(this,"Please connect to a network and refresh",Style.ALERT).show();
+        }
+
     }
 
     @Override
@@ -78,10 +107,23 @@ public class MainActivity extends ActionBarActivity implements UserDataOnComplet
                 menuItem = item;
                 menuItem.setActionView(R.layout.action_progress);
                 menuItem.expandActionView();
-                GetUserInfo info = new GetUserInfo(null,this,this);
-                info.execute();
-                pager = (ViewPager) findViewById(R.id.pager);
-                pager.setAdapter(new TabPageAdapter(getSupportFragmentManager()));
+                if(isConnectedToNetwork()){
+                    GetUserInfo info = new GetUserInfo(null,this,this);
+                    info.execute();
+                    pager = (ViewPager) findViewById(R.id.pager);
+                    pager.setAdapter(new TabPageAdapter(getSupportFragmentManager()));
+                    if(tabs == null) {
+                        tabs = (PagerSlidingTabStrip) findViewById(R.id.tabs);
+
+                        tabs.setViewPager(pager);
+                        tabs.setIndicatorColor(Color.parseColor("#9D4799"));
+                        tabs.setIndicatorHeight(7);
+                    }
+                }else{
+                    Crouton.makeText(this,"Not connected to a network",Style.ALERT).show();
+                    menuItem.collapseActionView();
+                    menuItem.setActionView(null);
+                }
                 break;
             case R.id.action_settings:
                 //TODO: Open settings activity

@@ -15,6 +15,7 @@ import android.widget.ListView;
 import java.util.ArrayList;
 
 import edu.csh.androiddrink.DrinkAdapter;
+import edu.csh.androiddrink.MainActivity;
 import edu.csh.androiddrink.jsonjavaobjects.ItemInfo;
 import edu.csh.androiddrink.backgroundtasks.DropDrinkAsync;
 import edu.csh.androiddrink.backgroundtasks.GetMachineItems;
@@ -24,7 +25,7 @@ import edu.csh.androiddrink.interfaces.MachineDataOnComplete;
 
 public class BigDrink extends ListFragment implements MachineDataOnComplete {
 
-    ArrayList<ItemInfo> itemInfoArrayList;
+    ArrayList<ItemInfo> itemInfoArrayList = null;
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
@@ -73,14 +74,21 @@ public class BigDrink extends ListFragment implements MachineDataOnComplete {
     @Override
     public void onActivityCreated(Bundle savedInstanceState){
         super.onActivityCreated(savedInstanceState);
-        GetMachineItems sync = new GetMachineItems(this, 1);
-        sync.execute();
+        if(MainActivity.isConnectedToNetwork){
+            GetMachineItems sync = new GetMachineItems(this, 1);
+            sync.execute();
+        }
+
     }
 
     @Override
     public void onComplete(ArrayList<ItemInfo> items) {
         itemInfoArrayList = items;
-        DrinkAdapter adapter = new DrinkAdapter(getActivity(),items);
-        setListAdapter(adapter);
+        if(isAdded()){
+            DrinkAdapter adapter = new DrinkAdapter(getActivity(),items);
+            setListAdapter(adapter);
+            adapter.notifyDataSetChanged();
+        }
+
     }
 }

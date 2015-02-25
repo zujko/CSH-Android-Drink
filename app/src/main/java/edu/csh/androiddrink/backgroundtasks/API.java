@@ -28,9 +28,6 @@ public class API {
                 InputStream content = entity.getContent();
                 reader = new InputStreamReader(content);
             }
-            else{
-                //TODO: Show a toast
-            }
         } catch (IOException e) {
             e.printStackTrace();
         }

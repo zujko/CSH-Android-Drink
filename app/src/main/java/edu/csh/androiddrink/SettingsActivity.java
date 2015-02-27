@@ -1,5 +1,7 @@
 package edu.csh.androiddrink;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.Preference;
@@ -11,6 +13,7 @@ import android.widget.LinearLayout;
 
 public class SettingsActivity extends PreferenceActivity {
 
+    Activity act = this;
 
     @Override
     public void onCreate(Bundle savedInstanceState){
@@ -26,7 +29,8 @@ public class SettingsActivity extends PreferenceActivity {
         licencePref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
-                //TODO: Open license activity
+                Intent intent = new Intent(act,LicenseActivity.class);
+                startActivity(intent);
                 return false;
             }
         });

@@ -66,6 +66,9 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.</string>
 
+    <string name="aboutText">
+        <![CDATA[<p>CSH Drink</p><p>Author: Peter Zujko (<a href="mailto:zujko@csh.rit.edu">zujko@csh.rit.edu</a>)</p><p>Source Code: <a href="https://github.com/Z-KO/CSH-Android-Drink">github.com/Z-KO/CSH-Android-Drink</a></p><br><p>CSH Drink allows you to interface with WebDrink from your Android device. This application relies on the <a href="https://github.com/bencentra/WebDrink-2.0/blob/master/docs/API.md">WebDrink API</a> to work. In order to use CSH Drink, you must use an API key. You may obtain your API key by going to <a href="https://webdrink.csh.rit.edu">WebDrink</a>, then clicking “Settings” at the top of the page.</p>]]>
+    </string>
 
     <string-array name="themes">
         <item name="dark">Dark</item>
@@ -75,9 +78,8 @@ limitations under the License.</string>
         <item name="dark">dark</item>
         <item name="light">light</item>
     </string-array>
-    <string name="title_activity_admin">AdminActivity</string>
-    <string name="title_activity_license">LicenseActivity</string>
+    <string name="title_activity_license">Licenses</string>
 
-    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_about">About</string>
 
 </resources>

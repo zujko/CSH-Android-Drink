@@ -4,4 +4,5 @@
     <color name="cshPinkDark">#B61643</color>
     <color name="cshPurplePressed">#7E397A</color>
     <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
 </resources>

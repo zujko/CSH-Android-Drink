@@ -39,7 +39,8 @@ public class SettingsActivity extends PreferenceActivity {
         aboutPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
-                //TODO: Open about activity
+                Intent intent = new Intent(act,AboutActivity.class);
+                startActivity(intent);
                 return false;
             }
         });

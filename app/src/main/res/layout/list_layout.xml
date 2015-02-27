@@ -3,6 +3,8 @@
     android:layout_height="?android:attr/listPreferredItemHeight"
     android:padding="6dip" >
 
+
+
     <ListView
         android:id="@android:id/list"
         android:layout_width="match_parent"

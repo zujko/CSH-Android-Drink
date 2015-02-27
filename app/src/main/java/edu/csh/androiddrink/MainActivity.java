@@ -2,10 +2,12 @@ package edu.csh.androiddrink;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
@@ -28,13 +30,28 @@ public class MainActivity extends ActionBarActivity implements UserDataOnComplet
     public static android.support.v7.app.ActionBar bar = null;
     public static boolean credits = false;
     public static boolean  isConnectedToNetwork;
+    private String theme;
     PagerSlidingTabStrip tabs = null;
     ViewPager pager;
     SecurePreferences prefs;
 
+
     @Override
     protected void onPostResume() {
         super.onPostResume();
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+        String getTheme = sharedPrefs.getString("theme_setting",null);
+        if(!getTheme.equals(theme)){
+            theme = getTheme;
+            if(theme.equals("light")){
+                recreate();
+                setTheme(R.style.Light);
+            }else{
+                recreate();
+                setTheme(R.style.Dark);
+            }
+
+        }
         isConnectedToNetwork = isConnectedToNetwork();
         if(isConnectedToNetwork){
             pager = (ViewPager) findViewById(R.id.pager);
@@ -64,6 +81,11 @@ public class MainActivity extends ActionBarActivity implements UserDataOnComplet
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+        theme = sharedPrefs.getString("theme_setting",null);
+        if(theme.equals("light")){
+            setTheme(R.style.Light);
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         isConnectedToNetwork = isConnectedToNetwork();
@@ -79,7 +101,7 @@ public class MainActivity extends ActionBarActivity implements UserDataOnComplet
             tabs = (PagerSlidingTabStrip) findViewById(R.id.tabs);
 
             tabs.setViewPager(pager);
-            tabs.setIndicatorColor(Color.parseColor("#9D4799"));
+            tabs.setIndicatorColor(Color.parseColor("#E11C52"));
             tabs.setIndicatorHeight(7);
 
         }else{
@@ -116,7 +138,7 @@ public class MainActivity extends ActionBarActivity implements UserDataOnComplet
                         tabs = (PagerSlidingTabStrip) findViewById(R.id.tabs);
 
                         tabs.setViewPager(pager);
-                        tabs.setIndicatorColor(Color.parseColor("#9D4799"));
+                        tabs.setIndicatorColor(Color.parseColor("#E11C52"));
                         tabs.setIndicatorHeight(7);
                     }
                 }else{
@@ -126,7 +148,8 @@ public class MainActivity extends ActionBarActivity implements UserDataOnComplet
                 }
                 break;
             case R.id.action_settings:
-                //TODO: Open settings activity
+                Intent intent = new Intent(this,SettingsActivity.class);
+                startActivity(intent);
                 break;
             default:
                 break;

@@ -2,7 +2,9 @@ package edu.csh.androiddrink;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -20,6 +22,11 @@ public class LoginActivity extends Activity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+        String theme = sharedPrefs.getString("theme_setting",null);
+        if(theme.equals("light")){
+            setTheme(R.style.Light);
+        }
         super.onCreate(savedInstanceState);
         SecurePreferences prefs = new SecurePreferences(this,"UserData","key", true);
         /*

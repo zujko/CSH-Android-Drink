@@ -2,7 +2,9 @@ package edu.csh.androiddrink;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,7 +51,7 @@ public class DrinkAdapter extends ArrayAdapter<ItemInfo> {
         }
 
         ItemInfo items = item.get(position);
-
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getContext());
         holder.itemName.setText(items.getItemName());
         if(creditsInt < itemPrice || items.getAvailable().equals("0")){
             holder.itemName.setTextColor(Color.parseColor("#868686"));
@@ -58,8 +60,14 @@ public class DrinkAdapter extends ArrayAdapter<ItemInfo> {
             rowView.setClickable(true);
             holder.itemPrice.setText("Price: " + itemPr);
         } else{
-            holder.itemName.setTextColor(Color.parseColor("#FFFFFF"));
-            holder.itemPrice.setTextColor(Color.parseColor("#FFFFFF"));
+            String theme = sharedPrefs.getString("theme_setting",null);
+            if(theme.equals("light")){
+                holder.itemPrice.setTextColor(Color.parseColor("#000000"));
+                holder.itemName.setTextColor(Color.parseColor("#000000"));
+            }else{
+                holder.itemName.setTextColor(Color.parseColor("#FFFFFF"));
+                holder.itemPrice.setTextColor(Color.parseColor("#FFFFFF"));
+            }
             rowView.setEnabled(false);
             rowView.setClickable(false);
             holder.itemPrice.setText("Price: " + itemPr);

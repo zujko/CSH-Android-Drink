@@ -7,7 +7,7 @@
             android:key="theme_setting"
             android:title="Theme"
             android:summary="Define which theme to use"
-            android:defaultValue="dark"
+            android:defaultValue="light"
             android:entries="@array/themes"
             android:entryValues="@array/themesValues"/>
         </PreferenceCategory>

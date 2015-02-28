@@ -1,7 +1,10 @@
 package edu.csh.androiddrink.backgroundtasks;
 
 import android.app.Activity;
+import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.AsyncTask;
+import android.preference.PreferenceManager;
 
 import com.activeandroid.ActiveAndroid;
 import com.activeandroid.query.Select;
@@ -23,6 +26,7 @@ import edu.csh.androiddrink.jsonjavaobjects.DropLogItem;
 
 public class SetUpChart extends AsyncTask<Void,Void,HashMap<String,Integer>> {
 
+    SharedPreferences sharedPrefs;
     SecurePreferences prefs;
     private PieChart chart;
 
@@ -30,6 +34,7 @@ public class SetUpChart extends AsyncTask<Void,Void,HashMap<String,Integer>> {
         prefs  = new SecurePreferences(act,"UserData","key", true);
         this.chart = chart;
         ActiveAndroid.initialize(act);
+        sharedPrefs = PreferenceManager.getDefaultSharedPreferences(act);
     }
 
     @Override
@@ -88,6 +93,9 @@ public class SetUpChart extends AsyncTask<Void,Void,HashMap<String,Integer>> {
         chart.animateXY(1500, 1500);
         Legend l = chart.getLegend();
         l.setPosition(Legend.LegendPosition.RIGHT_OF_CHART);
+        if(sharedPrefs.getString("theme_setting",null).equals("dark")){
+            l.setTextColor(Color.WHITE);
+        }
         l.setXEntrySpace(7f);
         l.setYEntrySpace(5f);
     }

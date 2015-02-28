@@ -23,9 +23,12 @@ public class LoginActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+
         String theme = sharedPrefs.getString("theme_setting",null);
-        if(theme.equals("light")){
+        if(theme != null && theme.equals("light")){
             setTheme(R.style.Light);
+        }else{
+            sharedPrefs.edit().putString("theme_setting","dark").apply();
         }
         super.onCreate(savedInstanceState);
         SecurePreferences prefs = new SecurePreferences(this,"UserData","key", true);

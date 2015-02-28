@@ -19,6 +19,7 @@ import com.securepreferences.SecurePreferences;
 
 import de.keyboardsurfer.android.widget.crouton.Crouton;
 import de.keyboardsurfer.android.widget.crouton.Style;
+import edu.csh.androiddrink.backgroundtasks.DropLogToDB;
 import edu.csh.androiddrink.backgroundtasks.GetUserInfo;
 import edu.csh.androiddrink.interfaces.UserDataOnComplete;
 import edu.csh.androiddrink.jsonjavaobjects.UserData;
@@ -83,7 +84,7 @@ public class MainActivity extends ActionBarActivity implements UserDataOnComplet
     protected void onCreate(Bundle savedInstanceState) {
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
         theme = sharedPrefs.getString("theme_setting",null);
-        if(theme.equals("light")){
+        if(theme != null && theme.equals("light")){
             setTheme(R.style.Light);
         }
         super.onCreate(savedInstanceState);
@@ -92,6 +93,9 @@ public class MainActivity extends ActionBarActivity implements UserDataOnComplet
         if(isConnectedToNetwork){
             GetUserInfo userInfo = new GetUserInfo(this,this,this);
             userInfo.execute();
+            DropLogToDB dataDB = new DropLogToDB(this);
+            dataDB.execute();
+
             bar = getSupportActionBar();
             bar.setTitle("CSH Drink");
 
@@ -151,6 +155,12 @@ public class MainActivity extends ActionBarActivity implements UserDataOnComplet
                 Intent intent = new Intent(this,SettingsActivity.class);
                 startActivity(intent);
                 break;
+            case R.id.action_admin:
+                //TODO: create admin activity
+                break;
+            case R.id.action_info:
+                Intent statsIntent = new Intent(this,StatisticsActivity.class);
+                startActivity(statsIntent);
             default:
                 break;
         }

@@ -45,6 +45,12 @@ public class GetUserInfo extends AsyncTask<Void, Void, UserData>{
             prefs.removeValue("credits");
             prefs.put("credits",info.getCredits());
         }
+        if(prefs.getString("admin") == null){
+            prefs.put("admin",info.getAdmin());
+        }
+        if(prefs.getString("uid") == null){
+            prefs.put("uid",info.getUid());
+        }
         if (data != null){
             data.onComplete(info);
         }

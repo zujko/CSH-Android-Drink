@@ -1,4 +1,4 @@
-package edu.csh.androiddrink;
+package edu.csh.androiddrink.activities;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -8,6 +8,7 @@ import android.support.v7.widget.Toolbar;
 
 import com.github.mikephil.charting.charts.PieChart;
 
+import edu.csh.androiddrink.R;
 import edu.csh.androiddrink.backgroundtasks.SetUpChart;
 
 

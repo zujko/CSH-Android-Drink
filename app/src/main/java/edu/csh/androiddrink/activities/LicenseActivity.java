@@ -1,16 +1,15 @@
-package edu.csh.androiddrink;
+package edu.csh.androiddrink.activities;
 
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.text.Html;
-import android.text.method.LinkMovementMethod;
-import android.widget.TextView;
+
+import edu.csh.androiddrink.R;
 
 
-public class AboutActivity extends ActionBarActivity {
+public class LicenseActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,10 +20,7 @@ public class AboutActivity extends ActionBarActivity {
         }
         setToolBar();
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_about);
-        TextView view = (TextView) findViewById(R.id.aboutAct);
-        view.setText(Html.fromHtml(getString(R.string.aboutText)));
-        view.setMovementMethod(LinkMovementMethod.getInstance());
+        setContentView(R.layout.activity_license);
     }
 
     private void setToolBar(){
@@ -33,5 +29,4 @@ public class AboutActivity extends ActionBarActivity {
             setSupportActionBar(toolbar);
         }
     }
-
 }

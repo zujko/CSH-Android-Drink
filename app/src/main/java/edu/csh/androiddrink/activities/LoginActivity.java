@@ -1,4 +1,4 @@
-package edu.csh.androiddrink;
+package edu.csh.androiddrink.activities;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -13,6 +13,7 @@ import android.widget.EditText;
 import com.dd.processbutton.iml.ActionProcessButton;
 import com.securepreferences.SecurePreferences;
 
+import edu.csh.androiddrink.R;
 import edu.csh.androiddrink.backgroundtasks.LoginAsync;
 
 

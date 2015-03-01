@@ -8,7 +8,7 @@ import com.securepreferences.SecurePreferences;
 
 import java.io.Reader;
 
-import edu.csh.androiddrink.MainActivity;
+import edu.csh.androiddrink.activities.MainActivity;
 import edu.csh.androiddrink.interfaces.UserDataOnComplete;
 import edu.csh.androiddrink.jsonjavaobjects.UserData;
 import edu.csh.androiddrink.jsonjavaobjects.UserDataResponse;

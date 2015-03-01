@@ -23,7 +23,7 @@ import java.io.InputStreamReader;
 
 import de.keyboardsurfer.android.widget.crouton.Crouton;
 import de.keyboardsurfer.android.widget.crouton.Style;
-import edu.csh.androiddrink.MainActivity;
+import edu.csh.androiddrink.activities.MainActivity;
 import edu.csh.androiddrink.R;
 
 

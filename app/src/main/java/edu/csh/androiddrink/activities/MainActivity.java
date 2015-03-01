@@ -1,4 +1,4 @@
-package edu.csh.androiddrink;
+package edu.csh.androiddrink.activities;
 
 import android.content.Context;
 import android.content.Intent;
@@ -19,6 +19,8 @@ import com.securepreferences.SecurePreferences;
 
 import de.keyboardsurfer.android.widget.crouton.Crouton;
 import de.keyboardsurfer.android.widget.crouton.Style;
+import edu.csh.androiddrink.R;
+import edu.csh.androiddrink.TabPageAdapter;
 import edu.csh.androiddrink.backgroundtasks.DropLogToDB;
 import edu.csh.androiddrink.backgroundtasks.GetUserInfo;
 import edu.csh.androiddrink.interfaces.UserDataOnComplete;

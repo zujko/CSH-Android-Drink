@@ -1,4 +1,4 @@
-package edu.csh.androiddrink;
+package edu.csh.androiddrink.activities;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -10,6 +10,8 @@ import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
+
+import edu.csh.androiddrink.R;
 
 public class SettingsActivity extends PreferenceActivity {
 

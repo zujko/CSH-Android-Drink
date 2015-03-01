@@ -7,7 +7,7 @@ import com.google.gson.GsonBuilder;
 import java.io.Reader;
 import java.util.ArrayList;
 
-import edu.csh.androiddrink.MainActivity;
+import edu.csh.androiddrink.activities.MainActivity;
 import edu.csh.androiddrink.jsonjavaobjects.ItemInfo;
 import edu.csh.androiddrink.jsonjavaobjects.Machine;
 import edu.csh.androiddrink.jsonjavaobjects.MachineData;

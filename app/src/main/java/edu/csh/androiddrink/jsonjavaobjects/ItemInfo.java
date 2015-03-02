@@ -33,7 +33,11 @@ public class ItemInfo extends Model {
     @Column(name = "slotNum")
     private String slotNum;
 
-    public ItemInfo(String machineId, String slotNum, String itemId, String itemName, String itemPrice, String available){
+    @SerializedName("status")
+    @Column(name = "status")
+    private String status;
+
+    public ItemInfo(String machineId, String slotNum, String itemId, String itemName, String itemPrice, String available, String status){
         super();
         this.machineId = machineId;
         this.itemId = itemId;
@@ -41,6 +45,7 @@ public class ItemInfo extends Model {
         this.itemPrice = itemPrice;
         this.available = available;
         this.slotNum= slotNum;
+        this.status = status;
     }
 
     public ItemInfo(){
@@ -88,5 +93,13 @@ public class ItemInfo extends Model {
 
     public void setMachineId(String machineId) {
         this.machineId = machineId;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

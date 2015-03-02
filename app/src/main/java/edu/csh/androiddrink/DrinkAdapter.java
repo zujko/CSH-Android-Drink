@@ -53,7 +53,7 @@ public class DrinkAdapter extends ArrayAdapter<ItemInfo> {
         ItemInfo items = item.get(position);
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getContext());
         holder.itemName.setText(items.getItemName());
-        if(creditsInt < itemPrice || items.getAvailable().equals("0")){
+        if(creditsInt < itemPrice || items.getAvailable().equals("0") || !(items.getStatus().equals("enabled"))){
             holder.itemName.setTextColor(Color.parseColor("#868686"));
             holder.itemPrice.setTextColor(Color.parseColor("#868686"));
             rowView.setEnabled(true);

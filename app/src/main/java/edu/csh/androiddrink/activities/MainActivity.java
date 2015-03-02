@@ -23,6 +23,7 @@ import edu.csh.androiddrink.R;
 import edu.csh.androiddrink.TabPageAdapter;
 import edu.csh.androiddrink.backgroundtasks.DropLogToDB;
 import edu.csh.androiddrink.backgroundtasks.GetUserInfo;
+import edu.csh.androiddrink.backgroundtasks.StoreNewMachineItems;
 import edu.csh.androiddrink.interfaces.UserDataOnComplete;
 import edu.csh.androiddrink.jsonjavaobjects.UserData;
 
@@ -57,8 +58,8 @@ public class MainActivity extends ActionBarActivity implements UserDataOnComplet
         }
         isConnectedToNetwork = isConnectedToNetwork();
         if(isConnectedToNetwork){
-            pager = (ViewPager) findViewById(R.id.pager);
-            pager.setAdapter(new TabPageAdapter(getSupportFragmentManager()));
+            StoreNewMachineItems item = new StoreNewMachineItems(this,pager);
+            item.execute();
             if(credits){
                 refreshCredits();
                 credits = false;
@@ -93,6 +94,9 @@ public class MainActivity extends ActionBarActivity implements UserDataOnComplet
         setContentView(R.layout.activity_main);
         isConnectedToNetwork = isConnectedToNetwork();
         if(isConnectedToNetwork){
+            pager = (ViewPager) findViewById(R.id.pager);
+            StoreNewMachineItems items = new StoreNewMachineItems(this,pager);
+            items.execute();
             GetUserInfo userInfo = new GetUserInfo(this,this,this);
             userInfo.execute();
             DropLogToDB dataDB = new DropLogToDB(this);
@@ -101,7 +105,7 @@ public class MainActivity extends ActionBarActivity implements UserDataOnComplet
             bar = getSupportActionBar();
             bar.setTitle("CSH Drink");
 
-            pager = (ViewPager) findViewById(R.id.pager);
+
             pager.setAdapter(new TabPageAdapter(getSupportFragmentManager()));
 
             tabs = (PagerSlidingTabStrip) findViewById(R.id.tabs);
@@ -138,12 +142,14 @@ public class MainActivity extends ActionBarActivity implements UserDataOnComplet
                 if(isConnectedToNetwork()){
                     GetUserInfo info = new GetUserInfo(null,this,this);
                     info.execute();
-                    pager = (ViewPager) findViewById(R.id.pager);
-                    pager.setAdapter(new TabPageAdapter(getSupportFragmentManager()));
+                    StoreNewMachineItems items = new StoreNewMachineItems(this,pager);
+                    items.execute();
                     if(tabs == null) {
                         tabs = (PagerSlidingTabStrip) findViewById(R.id.tabs);
 
-                        tabs.setViewPager(pager);
+                        if(pager != null){
+                            tabs.setViewPager(pager);
+                        }
                         tabs.setIndicatorColor(Color.parseColor("#E11C52"));
                         tabs.setIndicatorHeight(7);
                     }

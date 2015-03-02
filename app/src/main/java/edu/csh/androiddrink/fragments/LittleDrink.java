@@ -18,7 +18,6 @@ import java.util.Map;
 import java.util.WeakHashMap;
 
 import edu.csh.androiddrink.DrinkAdapter;
-import edu.csh.androiddrink.activities.MainActivity;
 import edu.csh.androiddrink.backgroundtasks.DropDrinkAsync;
 import edu.csh.androiddrink.backgroundtasks.GetMachineItems;
 import edu.csh.androiddrink.backgroundtasks.GetUserInfo;
@@ -83,10 +82,8 @@ public class LittleDrink extends ListFragment implements MachineDataOnComplete {
     @Override
     public void onActivityCreated(Bundle savedInstanceState){
         super.onActivityCreated(savedInstanceState);
-        if(MainActivity.isConnectedToNetwork){
-            GetMachineItems sync = new GetMachineItems(this,2);
-            sync.execute();
-        }
+        GetMachineItems items = new GetMachineItems(this,getActivity(),"1");
+        items.execute();
     }
 
     @Override

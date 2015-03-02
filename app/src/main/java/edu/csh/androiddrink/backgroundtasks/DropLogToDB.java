@@ -2,7 +2,6 @@ package edu.csh.androiddrink.backgroundtasks;
 
 import android.app.Activity;
 import android.os.AsyncTask;
-import android.util.Log;
 
 import com.activeandroid.ActiveAndroid;
 import com.activeandroid.query.Select;
@@ -31,11 +30,9 @@ public class DropLogToDB extends AsyncTask<Void,Void,Void> {
         for(DropLogItem item: response.getItems()){
             DropLogItem dropItem = new Select().from(DropLogItem.class).where("logId = ?", item.getLogId()).executeSingle();
             if(dropItem != null){
-                Log.v("ACTIVEANDROID", "STOPPING DB INSERT");
                 break;
             }else{
                 item.save();
-                Log.v("ACTIVEANDROID","Inserting value into DB");
             }
         }
         return null;

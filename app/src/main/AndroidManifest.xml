@@ -14,7 +14,7 @@
         <meta-data android:name="AA_DB_VERSION" android:value="5" />
         <meta-data
             android:name="AA_MODELS"
-            android:value="edu.csh.androiddrink.jsonjavaobjects.DropLogItem" />
+            android:value="edu.csh.androiddrink.jsonjavaobjects.DropLogItem, edu.csh.androiddrink.jsonjavaobjects.ItemInfo" />
         <activity
             android:name=".activities.LoginActivity"
             android:label="@string/title_activity_login" >

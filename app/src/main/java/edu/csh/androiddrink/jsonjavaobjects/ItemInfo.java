@@ -1,28 +1,53 @@
 package edu.csh.androiddrink.jsonjavaobjects;
 
 
+import com.activeandroid.Model;
+import com.activeandroid.annotation.Column;
+import com.activeandroid.annotation.Table;
 import com.google.gson.annotations.SerializedName;
 
-public class ItemInfo {
+@Table(name ="DrinkItems")
+public class ItemInfo extends Model {
+
+    @SerializedName("machine_id")
+    @Column(name = "machineId")
+    private String machineId;
 
     @SerializedName("item_id")
+    @Column(name = "itemId")
     private String itemId;
+
     @SerializedName("item_name")
+    @Column(name = "itemName")
     private String itemName;
+
     @SerializedName("item_price")
+    @Column(name = "itemPrice")
     private String itemPrice;
+
     @SerializedName("available")
+    @Column(name = "available")
     private String available;
+
     @SerializedName("slot_num")
+    @Column(name = "slotNum")
     private String slotNum;
 
-    public ItemInfo(String slotNum, String itemId, String itemName, String itemPrice, String available){
+    public ItemInfo(String machineId, String slotNum, String itemId, String itemName, String itemPrice, String available){
+        super();
+        this.machineId = machineId;
         this.itemId = itemId;
         this.itemName = itemName;
         this.itemPrice = itemPrice;
         this.available = available;
         this.slotNum= slotNum;
     }
+
+    public ItemInfo(){
+        super();
+    }
+
+
 
     public String getItemId(){
         return itemId;
@@ -57,4 +82,11 @@ public class ItemInfo {
         this.slotNum=slotNum;
     }
 
+    public String getMachineId() {
+        return machineId;
+    }
+
+    public void setMachineId(String machineId) {
+        this.machineId = machineId;
+    }
 }

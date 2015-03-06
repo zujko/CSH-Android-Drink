@@ -88,11 +88,13 @@ public class SetUpChart extends AsyncTask<Void,Void,HashMap<String,Integer>> {
         PieData data = new PieData(drinks,dataSet);
         data.setValueFormatter(new PercentFormatter());
         data.setValueTextSize(13f);
+        chart.setDescription("");
         chart.setData(data);
+        chart.setCenterText("Your Drink Stats");
         chart.highlightValues(null);
         chart.animateXY(1500, 1500);
         Legend l = chart.getLegend();
-        l.setPosition(Legend.LegendPosition.RIGHT_OF_CHART);
+        l.setPosition(Legend.LegendPosition.BELOW_CHART_CENTER);
         if(sharedPrefs.getString("theme_setting",null).equals("dark")){
             l.setTextColor(Color.WHITE);
         }

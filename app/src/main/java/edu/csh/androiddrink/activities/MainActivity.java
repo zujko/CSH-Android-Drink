@@ -95,9 +95,9 @@ public class MainActivity extends ActionBarActivity implements UserDataOnComplet
         isConnectedToNetwork = isConnectedToNetwork();
         if(isConnectedToNetwork){
             pager = (ViewPager) findViewById(R.id.pager);
-            StoreNewMachineItems items = new StoreNewMachineItems(this,pager);
+            final StoreNewMachineItems items = new StoreNewMachineItems(this,pager);
             items.execute();
-            GetUserInfo userInfo = new GetUserInfo(this,this,this);
+            final GetUserInfo userInfo = new GetUserInfo(this,this,this);
             userInfo.execute();
             DropLogToDB dataDB = new DropLogToDB(this);
             dataDB.execute();
@@ -163,9 +163,6 @@ public class MainActivity extends ActionBarActivity implements UserDataOnComplet
                 Intent intent = new Intent(this,SettingsActivity.class);
                 startActivity(intent);
                 break;
-            case R.id.action_admin:
-                //TODO: create admin activity
-                break;
             case R.id.action_info:
                 Intent statsIntent = new Intent(this,StatisticsActivity.class);
                 startActivity(statsIntent);
@@ -184,6 +181,8 @@ public class MainActivity extends ActionBarActivity implements UserDataOnComplet
         SecurePreferences prefs = new SecurePreferences(this,"UserData","key", true);
         prefs.removeValue("userKey");
         prefs.removeValue("credits");
+        prefs.removeValue("admin");
+        prefs.removeValue("uid");
         Intent intent = new Intent(this,LoginActivity.class);
         startActivity(intent);
         Toast.makeText(this,"Successfully signed out", Toast.LENGTH_SHORT).show();

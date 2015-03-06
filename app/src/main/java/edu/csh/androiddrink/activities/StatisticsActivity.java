@@ -14,8 +14,6 @@ import edu.csh.androiddrink.backgroundtasks.SetUpChart;
 
 public class StatisticsActivity extends ActionBarActivity {
 
-    private PieChart pieChart;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
@@ -29,7 +27,7 @@ public class StatisticsActivity extends ActionBarActivity {
         }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_statistics);
-        pieChart = (PieChart) findViewById(R.id.chart1);
+        PieChart pieChart = (PieChart) findViewById(R.id.chart1);
         SetUpChart dropItem = new SetUpChart(this, pieChart);
         dropItem.execute();
     }

@@ -10,9 +10,6 @@
         android:id="@+id/action_settings"
         android:title="@string/action_settings"/>
     <item
-        android:id="@+id/action_admin"
-        android:title="@string/action_admin" />
-    <item
         android:id="@+id/action_info"
         android:title="@string/action_info" />
     <item

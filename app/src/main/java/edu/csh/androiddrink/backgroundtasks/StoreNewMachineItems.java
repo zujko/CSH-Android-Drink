@@ -60,7 +60,7 @@ public class StoreNewMachineItems extends AsyncTask<Void, Void,Void> {
 
     @Override
     protected void onPostExecute(Void items) {
-        if(MainActivity.menuItem != null){
+        if(MainActivity.menuItem != null && pager != null){
             try{
                 pager.setAdapter(new TabPageAdapter(act.getSupportFragmentManager()));
             }catch (IllegalStateException e){

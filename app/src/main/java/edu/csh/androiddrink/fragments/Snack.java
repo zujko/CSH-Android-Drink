@@ -26,7 +26,6 @@ import edu.csh.androiddrink.jsonjavaobjects.ItemInfo;
 
 public class Snack extends ListFragment implements MachineDataOnComplete {
 
-    private final long minInterval = 950L;
     private Map<View, Long> lastClickMap = new WeakHashMap<>();
 
     ArrayList<ItemInfo> itemInfoArrayList = null;
@@ -51,6 +50,7 @@ public class Snack extends ListFragment implements MachineDataOnComplete {
         Long previousClickTime = lastClickMap.get(v);
         long currentTime = SystemClock.uptimeMillis();
         lastClickMap.put(v,currentTime);
+        long minInterval = 950L;
         if(previousClickTime == null || (currentTime - previousClickTime) > minInterval) {
             super.onListItemClick(l, v, position, id);
             final AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());

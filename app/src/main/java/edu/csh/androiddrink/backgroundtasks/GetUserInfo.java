@@ -2,6 +2,7 @@ package edu.csh.androiddrink.backgroundtasks;
 
 import android.app.Activity;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.google.gson.GsonBuilder;
 import com.securepreferences.SecurePreferences;
@@ -27,6 +28,7 @@ public class GetUserInfo extends AsyncTask<Void, Void, UserData>{
         this.mainAct = mainAct;
         prefs  = new SecurePreferences(act,"UserData","key", true);
         apiKey = prefs.getString("userKey");
+        Log.v("APIKEY","KEY IS: "+apiKey);
     }
 
     @Override

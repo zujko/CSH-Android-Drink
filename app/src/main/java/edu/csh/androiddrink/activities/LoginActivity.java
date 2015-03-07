@@ -52,7 +52,7 @@ public class LoginActivity extends Activity {
                 @Override
                 public void onClick(View v) {
                     btnSignIn.setProgress(1);
-                    LoginAsync loginAsync = new LoginAsync(editPassword.getText().toString(),thisAct);
+                    LoginAsync loginAsync = new LoginAsync(editPassword.getText().toString().replaceAll("\\s",""),thisAct);
                     loginAsync.execute();
                 }
             });

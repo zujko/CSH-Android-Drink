@@ -18,7 +18,6 @@
         android:id="@+id/editPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="textPassword"
         android:text=""
         android:hint="Enter your API key"
         android:layout_below="@+id/linearLayout"

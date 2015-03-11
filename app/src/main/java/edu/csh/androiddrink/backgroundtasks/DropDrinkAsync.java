@@ -45,7 +45,7 @@ public class DropDrinkAsync extends AsyncTask<Void, Void, String> {
         List<NameValuePair> pairs = new ArrayList<>();
         act.runOnUiThread(new Runnable() {
             public void run() {
-                if(delay.equals("") || delay.equals("1")){
+                if(delay.equals("") || delay.equals("1") || delay.equals("0")){
                     Crouton.makeText(act,"Preparing to drop drink in 1 second",Style.INFO).show();
                 }
                 else{

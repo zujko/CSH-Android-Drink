@@ -21,13 +21,18 @@ public class StatisticsActivity extends ActionBarActivity {
         if(theme.equals("light")){
             setTheme(R.style.Light);
         }
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.generalToolbar);
         if(toolbar != null){
             setSupportActionBar(toolbar);
         }
+
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_statistics);
+
         PieChart pieChart = (PieChart) findViewById(R.id.chart1);
+
         SetUpChart dropItem = new SetUpChart(this, pieChart);
         dropItem.execute();
     }

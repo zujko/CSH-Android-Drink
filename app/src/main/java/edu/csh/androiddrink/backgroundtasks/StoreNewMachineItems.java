@@ -31,9 +31,12 @@ public class StoreNewMachineItems extends AsyncTask<Void, Void,Void> {
 
     @Override
     protected Void doInBackground(Void... params) {
+        /* Get all items from each machine */
         Reader reader = API.getData("machines/stock/");
         Machine machine = new GsonBuilder().create().fromJson(reader, Machine.class);
         MachineData machines = machine.getMachineData();
+
+        /* Store all items in the DB */
         ActiveAndroid.beginTransaction();
         try {
             List<ItemInfo> itemsList = new Select().from(ItemInfo.class).execute();
@@ -64,6 +67,7 @@ public class StoreNewMachineItems extends AsyncTask<Void, Void,Void> {
             try{
                 pager.setAdapter(new TabPageAdapter(act.getSupportFragmentManager()));
             }catch (IllegalStateException e){
+                //TODO: Handle this better
                 Log.v("STORINGITEMS","ILLEGALSTATEEXCEPTION");
             }
 

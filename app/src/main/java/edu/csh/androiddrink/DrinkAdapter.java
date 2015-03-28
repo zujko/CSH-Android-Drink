@@ -34,8 +34,7 @@ public class DrinkAdapter extends ArrayAdapter<ItemInfo> {
     public View getView(int position, View convertView, ViewGroup parent) {
         View rowView = convertView;
         ViewHolder holder = null;
-        String credits = prefs.getString("credits");
-        int creditsInt = Integer.parseInt(credits);
+        int creditsInt = Integer.parseInt(prefs.getString("credits"));
         String itemPr = item.get(position).getItemPrice();
         int itemPrice = Integer.parseInt(itemPr);
         if(rowView == null){
@@ -46,13 +45,18 @@ public class DrinkAdapter extends ArrayAdapter<ItemInfo> {
             holder.itemPrice = (TextView)rowView.findViewById(R.id.secondLine);
 
             rowView.setTag(holder);
-        }else{
+        } else{
             holder = (ViewHolder)rowView.getTag();
         }
 
         ItemInfo items = item.get(position);
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getContext());
         holder.itemName.setText(items.getItemName());
+
+        /*
+         * If item is not available or if the user does not have enough credits, set color to grey
+         * and make item not clickable.
+         */
         if(creditsInt < itemPrice || items.getAvailable().equals("0") || !(items.getStatus().equals("enabled"))){
             holder.itemName.setTextColor(Color.parseColor("#868686"));
             holder.itemPrice.setTextColor(Color.parseColor("#868686"));
@@ -64,7 +68,7 @@ public class DrinkAdapter extends ArrayAdapter<ItemInfo> {
             if(theme.equals("light")){
                 holder.itemPrice.setTextColor(Color.parseColor("#000000"));
                 holder.itemName.setTextColor(Color.parseColor("#000000"));
-            }else{
+            } else{
                 holder.itemName.setTextColor(Color.parseColor("#FFFFFF"));
                 holder.itemPrice.setTextColor(Color.parseColor("#FFFFFF"));
             }

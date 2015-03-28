@@ -21,8 +21,10 @@ public class AboutActivity extends ActionBarActivity {
         if(theme.equals("light")){
             setTheme(R.style.Light);
         }
+
         setToolBar();
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_about);
         TextView view = (TextView) findViewById(R.id.aboutAct);
         view.setText(Html.fromHtml(getString(R.string.aboutText)));

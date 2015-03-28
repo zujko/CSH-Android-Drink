@@ -53,14 +53,17 @@ public class Snack extends ListFragment implements MachineDataOnComplete {
         long minInterval = 950L;
         if(previousClickTime == null || (currentTime - previousClickTime) > minInterval) {
             super.onListItemClick(l, v, position, id);
+
             final AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
             final ItemInfo item = itemInfoArrayList.get(position);
             alert.setTitle("Drop a snack?");
             alert.setMessage("You are about to drop a " + itemInfoArrayList.get(position).getItemName() +
                     "\n\nEnter seconds until drop");
+
             final EditText text = new EditText(getActivity());
             text.setInputType(InputType.TYPE_CLASS_NUMBER);
             alert.setView(text);
+
             alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
@@ -75,6 +78,7 @@ public class Snack extends ListFragment implements MachineDataOnComplete {
                     info.execute();
                 }
             });
+
             alert.show();
         }
     }

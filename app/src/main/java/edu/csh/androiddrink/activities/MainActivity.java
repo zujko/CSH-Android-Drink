@@ -43,6 +43,8 @@ public class MainActivity extends ActionBarActivity implements UserDataOnComplet
     @Override
     protected void onPostResume() {
         super.onPostResume();
+
+        /* Check the theme currently stored in SharedPreferences and set it as the activity */
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
         String getTheme = sharedPrefs.getString("theme_setting",null);
         if(!getTheme.equals(theme)){
@@ -56,6 +58,8 @@ public class MainActivity extends ActionBarActivity implements UserDataOnComplet
             }
 
         }
+
+        /* Check if the device is connected to a network, if it is, refresh credits */
         isConnectedToNetwork = isConnectedToNetwork();
         if(isConnectedToNetwork){
             StoreNewMachineItems item = new StoreNewMachineItems(this,pager);
@@ -65,11 +69,16 @@ public class MainActivity extends ActionBarActivity implements UserDataOnComplet
                 credits = false;
             }
         }else{
+
+            /* If the device is not connected to a network show a crouton */
             Crouton.makeText(this,"Not connected to a network", Style.ALERT).show();
             Crouton.makeText(this,"Please connect to a network and refresh",Style.ALERT).show();
         }
     }
 
+    /**
+     * Get the current amount of credits from secureprefs and set it as the subtitle
+     */
     public void refreshCredits(){
         prefs = new SecurePreferences(this,"UserData","key", true);
         bar = getSupportActionBar();
@@ -85,16 +94,23 @@ public class MainActivity extends ActionBarActivity implements UserDataOnComplet
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        /* Get the theme from sharedpreferences */
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
         theme = sharedPrefs.getString("theme_setting",null);
+
+        /* If the theme is not null and is equal to light, set the theme to light, else use default */
         if(theme != null && theme.equals("light")){
             setTheme(R.style.Light);
         }
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         isConnectedToNetwork = isConnectedToNetwork();
         if(isConnectedToNetwork){
             pager = (ViewPager) findViewById(R.id.pager);
+
+            /* Call the background tasks for getting drop data, user info, and DB */
             final StoreNewMachineItems items = new StoreNewMachineItems(this,pager);
             items.execute();
             final GetUserInfo userInfo = new GetUserInfo(this,this,this);
@@ -105,7 +121,6 @@ public class MainActivity extends ActionBarActivity implements UserDataOnComplet
             bar = getSupportActionBar();
             bar.setTitle("CSH Drink");
 
-
             pager.setAdapter(new TabPageAdapter(getSupportFragmentManager()));
 
             tabs = (PagerSlidingTabStrip) findViewById(R.id.tabs);
@@ -114,7 +129,7 @@ public class MainActivity extends ActionBarActivity implements UserDataOnComplet
             tabs.setIndicatorColor(Color.parseColor("#E11C52"));
             tabs.setIndicatorHeight(7);
 
-        }else{
+        } else{
             Crouton.makeText(this,"Not connected to a network", Style.ALERT).show();
             bar = getSupportActionBar();
             bar.setTitle("CSH Drink");
@@ -153,7 +168,7 @@ public class MainActivity extends ActionBarActivity implements UserDataOnComplet
                         tabs.setIndicatorColor(Color.parseColor("#E11C52"));
                         tabs.setIndicatorHeight(7);
                     }
-                }else{
+                } else{
                     Crouton.makeText(this,"Not connected to a network",Style.ALERT).show();
                     menuItem.collapseActionView();
                     menuItem.setActionView(null);

@@ -43,6 +43,7 @@ public class DropDrinkAsync extends AsyncTask<Void, Void, String> {
         HttpClient client = new DefaultHttpClient();
         HttpPost post = new HttpPost("https://webdrink.csh.rit.edu/api/index.php?request=drops/drop");
         List<NameValuePair> pairs = new ArrayList<>();
+
         act.runOnUiThread(new Runnable() {
             public void run() {
                 if(delay.equals("") || delay.equals("1") || delay.equals("0")){
@@ -53,11 +54,13 @@ public class DropDrinkAsync extends AsyncTask<Void, Void, String> {
                 }
             }
         });
+
         pairs.add(new BasicNameValuePair("machine_id", machine_id));
         pairs.add(new BasicNameValuePair("slot_num",slot_num));
         pairs.add(new BasicNameValuePair("delay",delay));
         pairs.add(new BasicNameValuePair("api_key",prefs.getString("userKey")));
-        try {
+
+        try { //TODO: Handle exceptions better
             post.setEntity(new UrlEncodedFormEntity(pairs));
             HttpResponse response = client.execute(post);
             String responseBody = EntityUtils.toString(response.getEntity());
@@ -76,8 +79,7 @@ public class DropDrinkAsync extends AsyncTask<Void, Void, String> {
         super.onPostExecute(status);
         if(status.equals("true")){
             Crouton.makeText(act,"Drink dropped!",Style.CONFIRM).show();
-        }
-        else{
+        } else{
             Crouton.makeText(act,"Error dropping drink",Style.ALERT).show();
         }
     }

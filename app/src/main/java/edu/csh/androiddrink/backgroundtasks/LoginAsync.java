@@ -63,16 +63,17 @@ public class LoginAsync extends AsyncTask<Object, String, String>  {
             JSONObject json = new JSONObject(builder.toString());
             final String valid = json.getString("message");
             final Boolean isValid;
+
             /* If the api key is valid, store it in secure preferences
              * and set isValid to true.
              */
             if(valid.contains("Greetings")){
                 prefs.put("userKey", apiKey);
                 isValid = true;
-            }
-            else{
+            } else{
                 isValid = false;
             }
+
             /* If an api key was inserted into secure preferences, set the progress of the button
              * to 100 and launch MainActivity. Else, set the progress to -1 (error) and launch a toast
              */

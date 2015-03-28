@@ -2,7 +2,6 @@ package edu.csh.androiddrink.backgroundtasks;
 
 import android.app.Activity;
 import android.os.AsyncTask;
-import android.util.Log;
 
 import com.google.gson.GsonBuilder;
 import com.securepreferences.SecurePreferences;
@@ -28,7 +27,6 @@ public class GetUserInfo extends AsyncTask<Void, Void, UserData>{
         this.mainAct = mainAct;
         prefs  = new SecurePreferences(act,"UserData","key", true);
         apiKey = prefs.getString("userKey");
-        Log.v("APIKEY","KEY IS: "+apiKey);
     }
 
     @Override
@@ -40,6 +38,8 @@ public class GetUserInfo extends AsyncTask<Void, Void, UserData>{
 
     @Override
     protected void onPostExecute(UserData info) {
+
+        /* Refresh credit amount */
         if(prefs.getString("credits") == null){
             prefs.put("credits",info.getCredits());
         }
@@ -47,6 +47,7 @@ public class GetUserInfo extends AsyncTask<Void, Void, UserData>{
             prefs.removeValue("credits");
             prefs.put("credits",info.getCredits());
         }
+
         if(prefs.getString("admin") == null){
             prefs.put("admin",info.getAdmin());
         }

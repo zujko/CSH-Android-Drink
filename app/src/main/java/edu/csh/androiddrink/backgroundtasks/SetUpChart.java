@@ -44,7 +44,7 @@ public class SetUpChart extends AsyncTask<Void,Void,HashMap<String,Integer>> {
         for(DropLogItem item: listItems){
             if(map.get(item.getItemName()) != null){
                 map.put(item.getItemName(), map.get(item.getItemName())+1);
-            }else{
+            } else{
                 map.put(item.getItemName(),1);
             }
         }
@@ -57,10 +57,12 @@ public class SetUpChart extends AsyncTask<Void,Void,HashMap<String,Integer>> {
         ArrayList<String> drinks = new ArrayList<>();
         ArrayList<Entry> drinkData = new ArrayList<>();
         ArrayList<Integer> colors = new ArrayList<>();
+
         chart.setHoleColorTransparent(true);
         chart.setUsePercentValues(true);
         chart.setHoleRadius(50f);
         chart.setDescription("");
+
         for (int c : ColorTemplate.VORDIPLOM_COLORS)
             colors.add(c);
 
@@ -82,10 +84,12 @@ public class SetUpChart extends AsyncTask<Void,Void,HashMap<String,Integer>> {
             drinkData.add(new Entry(fVal,counter));
             counter++;
         }
+
         PieDataSet dataSet = new PieDataSet(drinkData,"Drink Stats");
         dataSet.setColors(colors);
         dataSet.setSliceSpace(3f);
         PieData data = new PieData(drinks,dataSet);
+
         data.setValueFormatter(new PercentFormatter());
         data.setValueTextSize(13f);
         chart.setDescription("");
@@ -95,9 +99,11 @@ public class SetUpChart extends AsyncTask<Void,Void,HashMap<String,Integer>> {
         chart.animateXY(1500, 1500);
         Legend l = chart.getLegend();
         l.setPosition(Legend.LegendPosition.BELOW_CHART_CENTER);
+
         if(sharedPrefs.getString("theme_setting",null).equals("dark")){
             l.setTextColor(Color.WHITE);
         }
+
         l.setXEntrySpace(7f);
         l.setYEntrySpace(5f);
     }

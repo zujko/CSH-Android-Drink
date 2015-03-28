@@ -49,14 +49,17 @@ public class BigDrink extends ListFragment implements MachineDataOnComplete {
         long minInterval = 950L;
         if(previousClickTime == null || (currentTime - previousClickTime) > minInterval){
             super.onListItemClick(l, v, position, id);
+
             final ItemInfo item = itemInfoArrayList.get(position);
             final AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
             alert.setTitle("Drop a drink?");
             alert.setMessage("You are about to drop a "+itemInfoArrayList.get(position).getItemName()+
                     "\n\nEnter seconds until drop");
+
             final EditText text = new EditText(getActivity());
             text.setInputType(InputType.TYPE_CLASS_NUMBER);
             alert.setView(text);
+
             alert.setNegativeButton("Cancel",new DialogInterface.OnClickListener(){
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
@@ -72,6 +75,7 @@ public class BigDrink extends ListFragment implements MachineDataOnComplete {
 
                 }
             });
+
             alert.show();
         }
    }

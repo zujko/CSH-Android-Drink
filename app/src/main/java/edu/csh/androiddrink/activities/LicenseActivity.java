@@ -15,10 +15,13 @@ public class LicenseActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
         String theme = sharedPrefs.getString("theme_setting",null);
+
         if(theme.equals("light")){
             setTheme(R.style.Light);
         }
+
         setToolBar();
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_license);
     }

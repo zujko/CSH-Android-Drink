@@ -8,6 +8,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
@@ -16,6 +17,8 @@ import android.widget.Toast;
 
 import com.astuetz.PagerSlidingTabStrip;
 import com.securepreferences.SecurePreferences;
+
+import java.util.List;
 
 import de.keyboardsurfer.android.widget.crouton.Crouton;
 import de.keyboardsurfer.android.widget.crouton.Style;
@@ -159,9 +162,16 @@ public class MainActivity extends ActionBarActivity implements UserDataOnComplet
                     info.execute();
                     StoreNewMachineItems items = new StoreNewMachineItems(this,pager);
                     items.execute();
+                    List<Fragment> fragmentList = getSupportFragmentManager().getFragments();
+
+                    for(Fragment fragment: fragmentList){
+                        if(fragment instanceof android.support.v4.app.ListFragment){
+                            fragment.onActivityCreated(null);
+                        }
+                    }
+
                     if(tabs == null) {
                         tabs = (PagerSlidingTabStrip) findViewById(R.id.tabs);
-
                         if(pager != null){
                             tabs.setViewPager(pager);
                         }

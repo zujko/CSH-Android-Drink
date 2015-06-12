@@ -10,48 +10,15 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/Dark" >
-        <meta-data android:name="AA_DB_NAME" android:value="drink.db" />
-        <meta-data android:name="AA_DB_VERSION" android:value="5" />
-        <meta-data
-            android:name="AA_MODELS"
-            android:value="edu.csh.androiddrink.jsonjavaobjects.DropLogItem, edu.csh.androiddrink.jsonjavaobjects.ItemInfo" />
+
         <activity
-            android:name=".activities.LoginActivity"
-            android:label="@string/title_activity_login" >
+            android:name="edu.csh.cshdrink.MainActivity"
+            android:label="@string/title_activity_main" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity
-            android:name=".activities.MainActivity"
-            android:label="@string/title_activity_main" >
-        </activity>
-        <activity
-            android:name=".activities.SettingsActivity"
-            android:label="@string/title_activity_settings" >
-        </activity>
-        <activity
-            android:name=".activities.LicenseActivity"
-            android:label="@string/title_activity_license" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.SettingsActivity" />
-        </activity>
-        <activity
-            android:name=".activities.AboutActivity"
-            android:label="@string/title_activity_about" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.SettingsActivity" />
-        </activity>
-        <activity
-            android:name=".activities.StatisticsActivity"
-            android:label="@string/title_activity_statistics" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.MainActivity" />
         </activity>
     </application>
 

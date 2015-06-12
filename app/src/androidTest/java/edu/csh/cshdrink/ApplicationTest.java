@@ -1,4 +1,4 @@
-package edu.csh.androiddrink;
+package edu.csh.cshdrink;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

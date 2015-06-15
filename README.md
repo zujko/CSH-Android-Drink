@@ -9,7 +9,8 @@ Currently available on the play store.
 To use the app you must first log into [WebDrink](https://webdrink.csh.rit.edu/#/machines). After logging in, click on "Settings" at the top of the page. Copy and paste your API key into the app and log in. 
 
 ## Contributing
-
+### BEING REWRITTEN 
+#### Use the rewrite branch
 All types of contributions are welcome. The GitHub issue tracker is used for all bug tracking.
 
 https://github.com/Z-KO/CSH-Android-Drink/issues

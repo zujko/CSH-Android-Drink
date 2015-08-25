@@ -1,13 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- Base application theme. -->
     <style name="Light" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/cshPink</item>
         <item name="colorPrimaryDark">@color/cshPinkDark</item>
         <item name="colorAccent">@color/cshPurple</item>
     </style>
-    <style name="Light_Login" parent="Light">
-        <item name="android:textColor">@color/white</item>
-    </style>
-
 </resources>

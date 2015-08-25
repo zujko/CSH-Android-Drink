@@ -91,6 +91,7 @@
     <orderEntry type="library" exported="" name="eventbus-2.4.0" level="project" />
     <orderEntry type="library" exported="" name="android-priority-jobqueue-1.1.2" level="project" />
     <orderEntry type="library" exported="" name="support-v4-23.0.0" level="project" />
+    <orderEntry type="library" exported="" name="design-23.0.0" level="project" />
     <orderEntry type="library" exported="" name="support-annotations-23.0.0" level="project" />
   </component>
 </module>

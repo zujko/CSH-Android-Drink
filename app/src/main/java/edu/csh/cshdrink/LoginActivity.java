@@ -4,15 +4,28 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import edu.csh.androiddrink.R;
 
 public class LoginActivity extends AppCompatActivity {
+
+    @Bind(R.id.login_button) Button mLoginButton;
+    @Bind(R.id.get_apikey_button) Button mGetKeyButton;
+    @Bind(R.id.api_key_edittext) EditText mApiKeyEditText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        ButterKnife.bind(this);
+
+        setUpButtons();
+
     }
 
     @Override
@@ -35,5 +48,24 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    /**
+     * Sets up buttons by implementing an onClick listener.
+     */
+    private void setUpButtons() {
+        mLoginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //TODO Implement login logic
+            }
+        });
+
+        mGetKeyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //TODO Implement get api key logic
+            }
+        });
     }
 }

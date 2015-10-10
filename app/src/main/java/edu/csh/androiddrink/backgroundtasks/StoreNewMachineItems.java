@@ -9,6 +9,7 @@ import com.activeandroid.query.Select;
 import com.google.gson.GsonBuilder;
 
 import java.io.Reader;
+import java.lang.reflect.Modifier;
 import java.util.List;
 
 import edu.csh.androiddrink.activities.MainActivity;
@@ -31,7 +32,7 @@ public class StoreNewMachineItems extends AsyncTask<Void, Void, Void> {
     protected Void doInBackground(Void... params) {
         /* Get all items from each machine */
         Reader reader = API.getData("machines/stock/");
-        Machine machine = new GsonBuilder().create().fromJson(reader, Machine.class);
+        Machine machine = new GsonBuilder().excludeFieldsWithModifiers(Modifier.FINAL, Modifier.TRANSIENT, Modifier.STATIC).create().fromJson(reader, Machine.class);
         MachineData machines = machine.getMachineData();
 
         /* Store all items in the DB */

@@ -7,6 +7,7 @@ import com.google.gson.GsonBuilder;
 import com.securepreferences.SecurePreferences;
 
 import java.io.Reader;
+import java.lang.reflect.Modifier;
 
 import edu.csh.androiddrink.activities.MainActivity;
 import edu.csh.androiddrink.interfaces.UserDataOnComplete;
@@ -32,7 +33,7 @@ public class GetUserInfo extends AsyncTask<Void, Void, UserData>{
     @Override
     protected UserData doInBackground(Void... params) {
         Reader reader = API.getData("users/info&api_key="+apiKey);
-        UserDataResponse response = new GsonBuilder().create().fromJson(reader, UserDataResponse.class);
+        UserDataResponse response = new GsonBuilder().excludeFieldsWithModifiers(Modifier.FINAL, Modifier.TRANSIENT, Modifier.STATIC).create().fromJson(reader, UserDataResponse.class);
         return response.getUserData();
     }
 

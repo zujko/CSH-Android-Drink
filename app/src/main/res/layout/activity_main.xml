@@ -10,6 +10,7 @@
         android:id="@+id/toolbar"
         android:background="@color/cshPink"
         android:layout_width="match_parent"
+        android:elevation="4dp"
         android:layout_height="?actionBarSize"/>
 
     <android.support.design.widget.TabLayout

@@ -11,7 +11,7 @@
         android:label="@string/app_name"
         android:theme="@style/Light" >
         <activity
-            android:name="edu.csh.cshdrink.LoginActivity"
+            android:name="edu.csh.cshdrink.activities.LoginActivity"
             android:label="@string/title_activity_login" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,7 +20,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="edu.csh.cshdrink.MainActivity"
+            android:name="edu.csh.cshdrink.activities.MainActivity"
             android:label="@string/title_activity_main" >
         </activity>
     </application>

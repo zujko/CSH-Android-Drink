@@ -1,4 +1,4 @@
-package edu.csh.cshdrink;
+package edu.csh.cshdrink.activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

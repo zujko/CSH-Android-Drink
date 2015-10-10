@@ -2,21 +2,30 @@ package edu.csh.cshdrink.activities;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import edu.csh.androiddrink.R;
+import edu.csh.cshdrink.DrinkApplication;
+import edu.csh.cshdrink.models.Test;
 import edu.csh.cshdrink.network.DrinkService;
+import retrofit.Call;
+import retrofit.Callback;
+import retrofit.Response;
+import retrofit.Retrofit;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -24,13 +33,14 @@ public class LoginActivity extends AppCompatActivity {
     @Bind(R.id.get_apikey_button) Button mGetKeyButton;
     @Bind(R.id.api_key_edittext) EditText mApiKeyEditText;
     private Dialog mLoginDialog;
+    private SharedPreferences mPrefs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
-
+        mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
         setUpButtons();
 
     }
@@ -42,7 +52,28 @@ public class LoginActivity extends AppCompatActivity {
         mLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO Implement login logic
+                final String apiKey = mApiKeyEditText.getText().toString();
+                if (apiKey.equals("") || apiKey.equals(" ")) {
+                    Toast.makeText(getApplicationContext(), "API key cannot be empty!", Toast.LENGTH_SHORT).show();
+                } else {
+                    Call<Test> testCall = DrinkApplication.API.getTest(apiKey);
+                    testCall.enqueue(new Callback<Test>() {
+                        @Override
+                        public void onResponse(Response<Test> response, Retrofit retrofit) {
+                            if (response.body().data) {
+                                mPrefs.edit().putString("key",apiKey).apply();
+                                finishLogin();
+                            } else {
+                                Toast.makeText(getApplicationContext(), "Invalid API key", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Throwable t) {
+                            Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
             }
         });
 
@@ -90,8 +121,7 @@ public class LoginActivity extends AppCompatActivity {
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 if (url.startsWith(DrinkService.REDIRECT_URL)) {
                     String token = url.split(DrinkService.REDIRECT_URL)[1];
-                    Log.d("LOGIN", "TOKEN: " + token);
-                    mApiKeyEditText.setText(token);
+                    mApiKeyEditText.append(token);
                     webView.stopLoading();
                     webView.destroy();
                     mLoginDialog.dismiss();
@@ -110,5 +140,10 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
         webView.loadUrl("https://webdrink.csh.rit.edu");
+    }
+
+    private void finishLogin() {
+        startActivity(new Intent(this,MainActivity.class));
+        this.finish();
     }
 }

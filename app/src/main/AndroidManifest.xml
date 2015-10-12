@@ -24,7 +24,8 @@
         </activity>
         <activity
             android:name="edu.csh.cshdrink.activities.MainActivity"
-            android:label="@string/title_activity_main" >
+            android:label="@string/title_activity_main"
+            android:theme="@style/Light">
         </activity>
     </application>
 

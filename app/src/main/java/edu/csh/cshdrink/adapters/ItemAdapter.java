@@ -18,7 +18,7 @@ import edu.csh.cshdrink.models.Item;
 
 public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
 
-    private List<Item> mItems;
+    public List<Item> mItems;
 
     public ItemAdapter(List<Item> items) {
         if(items == null) {

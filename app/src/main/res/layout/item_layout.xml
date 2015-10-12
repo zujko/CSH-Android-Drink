@@ -5,6 +5,7 @@
     android:layout_height="?listPreferredItemHeightLarge"
     android:background="?android:attr/selectableItemBackground">
     <TextView
+        android:text="This is just a test"
         android:id="@+id/drink_item_textview"
         android:padding="10dp"
         android:textSize="20sp"
@@ -12,8 +13,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_centerInParent="true"/>
+        android:layout_centerInParent="true"
+        android:layout_toLeftOf="@+id/drink_item_price_textview"/>
     <TextView
+        android:text="220"
         android:padding="10dp"
         android:textSize="20sp"
         android:textColor="@color/black"

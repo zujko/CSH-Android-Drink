@@ -1,7 +1,9 @@
 package edu.csh.cshdrink.fragments;
 
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
@@ -23,6 +25,7 @@ import edu.csh.cshdrink.ItemClickSupport;
 import edu.csh.cshdrink.adapters.ItemAdapter;
 import edu.csh.cshdrink.models.BulkMachineData;
 import edu.csh.cshdrink.models.Item;
+import edu.csh.cshdrink.models.Test;
 import retrofit.Call;
 import retrofit.Callback;
 import retrofit.Response;
@@ -33,6 +36,8 @@ public class MachineFragment extends Fragment {
     private int machine;
     ItemAdapter adapter;
     @Bind(R.id.machine_item_list) RecyclerView mRecyclerView;
+    SharedPreferences mPrefs;
+    String apiKey;
 
     public static MachineFragment newInstance(int machineId) {
         Bundle args = new Bundle();
@@ -46,6 +51,8 @@ public class MachineFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.machine = getArguments().getInt(MACHINE_ID);
+        mPrefs = PreferenceManager.getDefaultSharedPreferences(getContext());
+        apiKey = mPrefs.getString("key","");
     }
 
     @Nullable
@@ -112,10 +119,27 @@ public class MachineFragment extends Fragment {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 String delay = text.getText().toString();
-                if(delay.equals("") || delay.equals(" ")) {
+                if (delay.equals("") || delay.equals(" ")) {
                     delay = "0";
                 }
-               //TODO POST to drop drink
+                Call<Test> call = DrinkApplication.API.dropDrink(item.machine_id, item.slot_num, delay, apiKey);
+                final String finalDelay = delay;
+                Toast.makeText(getContext(), "Drink dropping in " + finalDelay + " seconds", Toast.LENGTH_SHORT).show();
+                call.enqueue(new Callback<Test>() {
+                    @Override
+                    public void onResponse(Response<Test> response, Retrofit retrofit) {
+                        Test body = response.body();
+                        if (body.data) {
+                            Toast.makeText(getContext(), "Drink Dropped!", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(getContext(), "Failed to drop drink: "+body.message,Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                    @Override
+                    public void onFailure(Throwable t) {
+                        Toast.makeText(getContext(), "FAILED: " + t.toString(), Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         });
         alert.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {

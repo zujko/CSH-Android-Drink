@@ -54,7 +54,7 @@ public class LoginActivity extends AppCompatActivity {
         mLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final String apiKey = mApiKeyEditText.getText().toString();
+                final String apiKey = mApiKeyEditText.getText().toString().trim();
                 if (apiKey.equals("") || apiKey.equals(" ")) {
                     Toast.makeText(getApplicationContext(), "API key cannot be empty!", Toast.LENGTH_SHORT).show();
                 } else {
@@ -146,11 +146,19 @@ public class LoginActivity extends AppCompatActivity {
         webView.loadUrl("https://webdrink.csh.rit.edu");
     }
 
+    /**
+     * Finishes the login process but starting the main activity
+     * and calling finish on the login activity.
+     */
     private void finishLogin() {
         startActivity(new Intent(this, MainActivity.class));
         this.finish();
     }
 
+    /**
+     * Gets user info (uid,credits,admin,name) and stores it in SharedPreferences.
+     * @param apiKey
+     */
     private void getUserInfo(String apiKey) {
         Call<UserData> userDataCall = DrinkApplication.API.getUserInfo(apiKey);
         userDataCall.enqueue(new Callback<UserData>() {

@@ -94,8 +94,8 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" name="butterknife-7.0.1" level="project" />
     <orderEntry type="library" exported="" name="gson-2.3.1" level="project" />
-    <orderEntry type="library" exported="" name="eventbus-2.4.0" level="project" />
     <orderEntry type="library" exported="" name="okio-1.6.0" level="project" />
+    <orderEntry type="library" exported="" name="eventbus-2.4.0" level="project" />
     <orderEntry type="library" exported="" name="retrofit-2.0.0-beta2" level="project" />
     <orderEntry type="library" exported="" name="okhttp-2.5.0" level="project" />
     <orderEntry type="library" exported="" name="design-23.0.1" level="project" />
@@ -103,7 +103,7 @@
     <orderEntry type="library" exported="" name="android-priority-jobqueue-1.1.2" level="project" />
     <orderEntry type="library" exported="" name="support-v4-23.0.1" level="project" />
     <orderEntry type="library" exported="" name="appcompat-v7-23.0.1" level="project" />
-    <orderEntry type="library" exported="" name="support-annotations-23.0.1" level="project" />
     <orderEntry type="library" exported="" name="converter-gson-2.0.0-beta2" level="project" />
+    <orderEntry type="library" exported="" name="support-annotations-23.0.1" level="project" />
   </component>
 </module>

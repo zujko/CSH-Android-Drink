@@ -40,9 +40,12 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+        if(mPrefs.getString("key",null) != null) {
+            finishLogin();
+        }
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
-        mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
         setUpButtons();
 
     }

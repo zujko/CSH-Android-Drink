@@ -2,6 +2,7 @@ package edu.csh.cshdrink.network;
 
 import edu.csh.cshdrink.models.BulkMachineData;
 import edu.csh.cshdrink.models.Test;
+import edu.csh.cshdrink.models.UserData;
 import retrofit.Call;
 import retrofit.http.GET;
 import retrofit.http.POST;
@@ -17,6 +18,9 @@ public interface DrinkService {
 
     @GET("machines/stock")
     Call<BulkMachineData> getBulkMachineData();
+
+    @GET("users/info")
+    Call<UserData> getUserInfo(@Query("api_key") String apiKey);
 
     @POST("drops/drop")
     Call<Test> dropDrink(@Query("machine_id") String machineId,

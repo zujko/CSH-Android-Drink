@@ -7,10 +7,12 @@ import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.InputType;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +28,7 @@ import edu.csh.cshdrink.adapters.ItemAdapter;
 import edu.csh.cshdrink.models.BulkMachineData;
 import edu.csh.cshdrink.models.Item;
 import edu.csh.cshdrink.models.Test;
+import edu.csh.cshdrink.models.UserData;
 import retrofit.Call;
 import retrofit.Callback;
 import retrofit.Response;
@@ -122,7 +125,7 @@ public class MachineFragment extends Fragment {
                 if (delay.equals("") || delay.equals(" ")) {
                     delay = "0";
                 }
-                Call<Test> call = DrinkApplication.API.dropDrink(item.machine_id,item.slot_num,delay,apiKey);
+                Call<Test> call = DrinkApplication.API.dropDrink(item.machine_id, item.slot_num, delay, apiKey);
                 final String finalDelay = delay;
                 Toast.makeText(getContext(), "Drink dropping in " + finalDelay + " seconds", Toast.LENGTH_SHORT).show();
                 call.enqueue(new Callback<Test>() {
@@ -131,10 +134,12 @@ public class MachineFragment extends Fragment {
                         Test body = response.body();
                         if (body.data) {
                             Toast.makeText(getContext(), "Drink Dropped!", Toast.LENGTH_SHORT).show();
+                            updateCredits();
                         } else {
-                            Toast.makeText(getContext(), "Failed to drop drink: "+body.message,Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(), "Failed to drop drink: " + body.message, Toast.LENGTH_SHORT).show();
                         }
                     }
+
                     @Override
                     public void onFailure(Throwable t) {
                         Toast.makeText(getContext(), "FAILED: " + t.toString(), Toast.LENGTH_SHORT).show();
@@ -149,5 +154,32 @@ public class MachineFragment extends Fragment {
             }
         });
         alert.create().show();
+    }
+
+    private void updateCredits() {
+        Call<UserData> userDataCall = DrinkApplication.API.getUserInfo(apiKey);
+        userDataCall.enqueue(new Callback<UserData>() {
+            @Override
+            public void onResponse(Response<UserData> response, Retrofit retrofit) {
+                UserData userData = response.body();
+                if(userData.status.equals("true")) {
+                    UserData.User user = userData.data;
+                    String data = String.format("UID: %s CREDITS: %s ADMIN: %s",user.uid,user.credits,user.admin);
+                    Log.d("USER DATA", data);
+                    mPrefs.edit().putString("uid",user.uid).commit();
+                    mPrefs.edit().putString("credits",user.credits).commit();
+                    mPrefs.edit().putString("admin",user.admin).commit();
+                    AppCompatActivity activity = (AppCompatActivity) getActivity();
+                    activity.getSupportActionBar().setSubtitle("Credits: " +mPrefs.getString("credits",""));
+                }
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                Toast.makeText(getActivity(), "Could not get user data", Toast.LENGTH_SHORT).show();
+                String errorMessage = String.format("Error: %s\nMessage: %s\nCause: %s",t.toString(),t.getMessage(),t.getCause().getMessage());
+                Log.e("LOGIN", errorMessage);
+            }
+        });
     }
 }

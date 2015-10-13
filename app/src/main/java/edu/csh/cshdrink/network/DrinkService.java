@@ -4,6 +4,8 @@ import edu.csh.cshdrink.models.BulkMachineData;
 import edu.csh.cshdrink.models.Test;
 import edu.csh.cshdrink.models.UserData;
 import retrofit.Call;
+import retrofit.http.Field;
+import retrofit.http.FormUrlEncoded;
 import retrofit.http.GET;
 import retrofit.http.POST;
 import retrofit.http.Query;
@@ -22,11 +24,10 @@ public interface DrinkService {
     @GET("users/info")
     Call<UserData> getUserInfo(@Query("api_key") String apiKey);
 
+    @FormUrlEncoded
     @POST("drops/drop")
-    Call<Test> dropDrink(@Query("machine_id") String machineId,
-                         @Query("slot_num") String slotNum,
-                         @Query("delay") String delay,
-                         @Query("api_key") String apiKey);
-
-
+    Call<Test> dropDrink(@Field("machine_id") String machineId,
+                         @Field("slot_num") String slotNum,
+                         @Field("delay") String delay,
+                         @Field("api_key") String apiKey);
 }

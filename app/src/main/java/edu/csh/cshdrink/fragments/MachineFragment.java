@@ -122,7 +122,7 @@ public class MachineFragment extends Fragment {
                 if (delay.equals("") || delay.equals(" ")) {
                     delay = "0";
                 }
-                Call<Test> call = DrinkApplication.API.dropDrink(item.machine_id, item.slot_num, delay, apiKey);
+                Call<Test> call = DrinkApplication.API.dropDrink(item.machine_id,item.slot_num,delay,apiKey);
                 final String finalDelay = delay;
                 Toast.makeText(getContext(), "Drink dropping in " + finalDelay + " seconds", Toast.LENGTH_SHORT).show();
                 call.enqueue(new Callback<Test>() {

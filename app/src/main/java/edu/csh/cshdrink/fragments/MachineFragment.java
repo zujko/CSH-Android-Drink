@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatEditText;
@@ -39,6 +40,7 @@ public class MachineFragment extends Fragment {
     private int machine;
     ItemAdapter adapter;
     @Bind(R.id.machine_item_list) RecyclerView mRecyclerView;
+    @Bind(R.id.swipe_container) SwipeRefreshLayout mSwipeRefreshLayout;
     SharedPreferences mPrefs;
     String apiKey;
 
@@ -64,15 +66,23 @@ public class MachineFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_machine_layout,container,false);
         ButterKnife.bind(this, rootView);
 
+        mSwipeRefreshLayout.setColorSchemeResources(R.color.cshPink, R.color.cshPinkDark, R.color.cshPurple, R.color.cshPurplePressed);
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                loadItems();
+            }
+        });
+
         adapter = new ItemAdapter(null);
         ItemClickSupport.addTo(mRecyclerView).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
             @Override
             public void onItemClicked(RecyclerView recyclerView, int position, View v) {
                 Item item = adapter.mItems.get(position);
-                if(item.isEnabled() && item.isAvailable()) {
+                if (item.isEnabled() && item.isAvailable()) {
                     createDropDialog(item);
                 } else {
-                    Toast.makeText(getContext(),"Item is not available",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Item is not available", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -80,30 +90,7 @@ public class MachineFragment extends Fragment {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         RecyclerView.ItemDecoration itemDecoration = new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL_LIST);
         mRecyclerView.addItemDecoration(itemDecoration);
-        Call<BulkMachineData> bulkMachineDataCall = DrinkApplication.API.getBulkMachineData();
-        bulkMachineDataCall.enqueue(new Callback<BulkMachineData>() {
-            @Override
-            public void onResponse(Response<BulkMachineData> response, Retrofit retrofit) {
-                BulkMachineData.MachineData data = response.body().data;
-                switch (machine) {
-                    case 1:
-                        adapter.addItems(data.littleDrink);
-                        break;
-                    case 2:
-                        adapter.addItems(data.bigDrink);
-                        break;
-                    case 3:
-                        adapter.addItems(data.snack);
-                        break;
-                }
-                adapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onFailure(Throwable t) {
-                Toast.makeText(getContext(),t.getMessage(),Toast.LENGTH_SHORT).show();
-            }
-        });
+        loadItems();
         return rootView;
     }
 
@@ -154,6 +141,36 @@ public class MachineFragment extends Fragment {
             }
         });
         alert.create().show();
+    }
+
+    private void loadItems() {
+        Call<BulkMachineData> bulkMachineDataCall = DrinkApplication.API.getBulkMachineData();
+        bulkMachineDataCall.enqueue(new Callback<BulkMachineData>() {
+            @Override
+            public void onResponse(Response<BulkMachineData> response, Retrofit retrofit) {
+                BulkMachineData.MachineData data = response.body().data;
+                adapter.mItems.clear();
+                switch (machine) {
+                    case 1:
+                        adapter.addItems(data.littleDrink);
+                        break;
+                    case 2:
+                        adapter.addItems(data.bigDrink);
+                        break;
+                    case 3:
+                        adapter.addItems(data.snack);
+                        break;
+                }
+                adapter.notifyDataSetChanged();
+                mSwipeRefreshLayout.setRefreshing(false);
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                Toast.makeText(getContext(),t.getMessage(),Toast.LENGTH_SHORT).show();
+                mSwipeRefreshLayout.setRefreshing(false);
+            }
+        });
     }
 
     private void updateCredits() {

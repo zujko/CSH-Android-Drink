@@ -25,7 +25,9 @@
         <activity
             android:name="edu.csh.cshdrink.activities.MainActivity"
             android:label="@string/title_activity_main"
-            android:theme="@style/Light">
+            android:theme="@style/Light"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden">
         </activity>
     </application>
 

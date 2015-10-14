@@ -4,16 +4,19 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Gravity;
 import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import butterknife.Bind;
@@ -32,6 +35,7 @@ public class LoginActivity extends AppCompatActivity {
     @Bind(R.id.login_button) Button mLoginButton;
     @Bind(R.id.get_apikey_button) Button mGetKeyButton;
     @Bind(R.id.api_key_edittext) EditText mApiKeyEditText;
+    private ProgressBar mProgressBar;
     private Dialog mLoginDialog;
     private SharedPreferences mPrefs;
 
@@ -42,6 +46,9 @@ public class LoginActivity extends AppCompatActivity {
         if(mPrefs.getString("key",null) != null) {
             finishLogin();
         }
+        mProgressBar = new ProgressBar(this);
+        mProgressBar.setIndeterminate(true);
+        mProgressBar.setVisibility(View.VISIBLE);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
         setUpButtons();
@@ -94,15 +101,15 @@ public class LoginActivity extends AppCompatActivity {
     private void createLoginDialog() {
         AlertDialog.Builder webDialog = new AlertDialog.Builder(this);
         WebView webView = new WebView(this);
+        webView.setVisibility(View.INVISIBLE);
         LinearLayout wrapper = new LinearLayout(this);
         EditText keyboardHack = new EditText(this);
         keyboardHack.setVisibility(View.GONE);
-
-        createWebView(webView);
         wrapper.setOrientation(LinearLayout.VERTICAL);
         wrapper.addView(webView, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
         wrapper.addView(keyboardHack, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-
+        wrapper.addView(mProgressBar, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+        wrapper.setGravity(Gravity.CENTER_VERTICAL);
         webDialog.setView(wrapper);
         webDialog.setNegativeButton("Close", new DialogInterface.OnClickListener() {
             @Override
@@ -111,6 +118,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
         mLoginDialog = webDialog.create();
+        createWebView(webView);
         mLoginDialog.show();
     }
 
@@ -119,7 +127,18 @@ public class LoginActivity extends AppCompatActivity {
      * @param webView
      */
     private void createWebView(final WebView webView) {
+        final String tag = "WEBVIEW";
+        webView.getSettings().setJavaScriptEnabled(true);
         webView.setWebViewClient(new WebViewClient() {
+            @Override
+            public void onPageStarted(WebView view, String url, Bitmap favicon) {
+                if(mProgressBar.getVisibility() == View.INVISIBLE && view.getVisibility() == View.VISIBLE) {
+                    mProgressBar.setVisibility(View.VISIBLE);
+                    view.setVisibility(View.INVISIBLE);
+                }
+                super.onPageStarted(view, url, favicon);
+            }
+
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 if (url.startsWith(DrinkService.REDIRECT_URL)) {
@@ -129,16 +148,20 @@ public class LoginActivity extends AppCompatActivity {
                     webView.stopLoading();
                     webView.destroy();
                     mLoginDialog.dismiss();
-                    return false;
+                    return true;
                 }
-                return super.shouldOverrideUrlLoading(view,url);
+                return super.shouldOverrideUrlLoading(view, url);
             }
 
             @Override
             public void onPageFinished(WebView view, String url) {
                 if (url.startsWith("https://webauth")) {
+                    if(mProgressBar.getVisibility() == View.VISIBLE && view.getVisibility() == View.INVISIBLE) {
+                        mProgressBar.setVisibility(View.INVISIBLE);
+                        view.setVisibility(View.VISIBLE);
+                    }
                     super.onPageFinished(view, url);
-                } else if (url.startsWith("https://webdrink.csh.rit")) {
+                } else if (url.startsWith("https://webdrink.csh.rit") && !url.startsWith(DrinkService.LOGIN_URL)) {
                     view.loadUrl(DrinkService.LOGIN_URL);
                 }
             }

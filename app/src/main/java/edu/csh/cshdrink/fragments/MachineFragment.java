@@ -66,6 +66,7 @@ public class MachineFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_machine_layout,container,false);
         ButterKnife.bind(this, rootView);
 
+        mSwipeRefreshLayout.setDistanceToTriggerSync(240);
         mSwipeRefreshLayout.setColorSchemeResources(R.color.cshPink, R.color.cshPinkDark, R.color.cshPurple, R.color.cshPurplePressed);
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override

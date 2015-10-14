@@ -21,6 +21,9 @@ public interface DrinkService {
     @GET("machines/stock")
     Call<BulkMachineData> getBulkMachineData();
 
+    @GET("machines/stock")
+    Call<BulkMachineData> getSpecificMachineData(@Query("machine_id") String machineId);
+
     @GET("users/info")
     Call<UserData> getUserInfo(@Query("api_key") String apiKey);
 

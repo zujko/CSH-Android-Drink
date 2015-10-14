@@ -144,7 +144,7 @@ public class MachineFragment extends Fragment {
     }
 
     private void loadItems() {
-        Call<BulkMachineData> bulkMachineDataCall = DrinkApplication.API.getBulkMachineData();
+        Call<BulkMachineData> bulkMachineDataCall = DrinkApplication.API.getSpecificMachineData(String.valueOf(machine));
         bulkMachineDataCall.enqueue(new Callback<BulkMachineData>() {
             @Override
             public void onResponse(Response<BulkMachineData> response, Retrofit retrofit) {

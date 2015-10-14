@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -22,7 +21,6 @@ import butterknife.ButterKnife;
 import edu.csh.androiddrink.R;
 import edu.csh.cshdrink.DrinkApplication;
 import edu.csh.cshdrink.models.Test;
-import edu.csh.cshdrink.models.UserData;
 import edu.csh.cshdrink.network.DrinkService;
 import retrofit.Call;
 import retrofit.Callback;
@@ -66,7 +64,6 @@ public class LoginActivity extends AppCompatActivity {
                         @Override
                         public void onResponse(Response<Test> response, Retrofit retrofit) {
                             if (response.body().data) {
-                                getUserInfo(apiKey);
                                 mPrefs.edit().putString("key",apiKey).apply();
                                 finishLogin();
                             } else {
@@ -156,34 +153,5 @@ public class LoginActivity extends AppCompatActivity {
     private void finishLogin() {
         startActivity(new Intent(this, MainActivity.class));
         this.finish();
-    }
-
-    /**
-     * Gets user info (uid,credits,admin,name) and stores it in SharedPreferences.
-     * @param apiKey
-     */
-    private void getUserInfo(String apiKey) {
-        Call<UserData> userDataCall = DrinkApplication.API.getUserInfo(apiKey);
-        userDataCall.enqueue(new Callback<UserData>() {
-            @Override
-            public void onResponse(Response<UserData> response, Retrofit retrofit) {
-                UserData userData = response.body();
-                if(userData.status.equals("true")) {
-                    UserData.User user = userData.data;
-                    String data = String.format("UID: %s CREDITS: %s ADMIN: %s",user.uid,user.credits,user.admin);
-                    Log.d("USER DATA",data);
-                    mPrefs.edit().putString("uid",user.uid).commit();
-                    mPrefs.edit().putString("credits",user.credits).commit();
-                    mPrefs.edit().putString("admin",user.admin).commit();
-                }
-            }
-
-            @Override
-            public void onFailure(Throwable t) {
-                Toast.makeText(getApplicationContext(), "Could not get user data", Toast.LENGTH_SHORT).show();
-                String errorMessage = String.format("Error: %s\nMessage: %s\nCause: %s",t.toString(),t.getMessage(),t.getCause().getMessage());
-                Log.e("LOGIN", errorMessage);
-            }
-        });
     }
 }

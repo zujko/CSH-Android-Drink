@@ -1,9 +1,9 @@
-package edu.csh.cshdrink;
+package edu.csh.drink;
 
 import android.app.Application;
 
-import edu.csh.cshdrink.network.DrinkService;
-import edu.csh.cshdrink.network.ServiceGenerator;
+import edu.csh.drink.network.DrinkService;
+import edu.csh.drink.network.ServiceGenerator;
 
 public class DrinkApplication extends Application {
     public static DrinkService API;

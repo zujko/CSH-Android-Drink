@@ -1,4 +1,4 @@
-package edu.csh.cshdrink.activities;
+package edu.csh.drink.activities;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -22,9 +22,9 @@ import android.widget.Toast;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import edu.csh.androiddrink.R;
-import edu.csh.cshdrink.DrinkApplication;
-import edu.csh.cshdrink.models.Test;
-import edu.csh.cshdrink.network.DrinkService;
+import edu.csh.drink.DrinkApplication;
+import edu.csh.drink.models.Test;
+import edu.csh.drink.network.DrinkService;
 import retrofit.Call;
 import retrofit.Callback;
 import retrofit.Response;

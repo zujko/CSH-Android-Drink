@@ -1,4 +1,4 @@
-package edu.csh.cshdrink.network;
+package edu.csh.drink.network;
 
 import com.squareup.okhttp.OkHttpClient;
 

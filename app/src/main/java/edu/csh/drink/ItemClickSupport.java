@@ -1,4 +1,4 @@
-package edu.csh.cshdrink;
+package edu.csh.drink;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;

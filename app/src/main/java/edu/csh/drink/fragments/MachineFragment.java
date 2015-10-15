@@ -1,4 +1,4 @@
-package edu.csh.cshdrink.fragments;
+package edu.csh.drink.fragments;
 
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
@@ -22,14 +22,14 @@ import android.widget.Toast;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import edu.csh.androiddrink.R;
-import edu.csh.cshdrink.DividerItemDecoration;
-import edu.csh.cshdrink.DrinkApplication;
-import edu.csh.cshdrink.ItemClickSupport;
-import edu.csh.cshdrink.adapters.ItemAdapter;
-import edu.csh.cshdrink.models.BulkMachineData;
-import edu.csh.cshdrink.models.Item;
-import edu.csh.cshdrink.models.Test;
-import edu.csh.cshdrink.models.UserData;
+import edu.csh.drink.DividerItemDecoration;
+import edu.csh.drink.DrinkApplication;
+import edu.csh.drink.ItemClickSupport;
+import edu.csh.drink.adapters.ItemAdapter;
+import edu.csh.drink.models.BulkMachineData;
+import edu.csh.drink.models.Item;
+import edu.csh.drink.models.Test;
+import edu.csh.drink.models.UserData;
 import retrofit.Call;
 import retrofit.Callback;
 import retrofit.Response;

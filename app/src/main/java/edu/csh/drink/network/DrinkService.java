@@ -1,8 +1,8 @@
-package edu.csh.cshdrink.network;
+package edu.csh.drink.network;
 
-import edu.csh.cshdrink.models.BulkMachineData;
-import edu.csh.cshdrink.models.Test;
-import edu.csh.cshdrink.models.UserData;
+import edu.csh.drink.models.BulkMachineData;
+import edu.csh.drink.models.Test;
+import edu.csh.drink.models.UserData;
 import retrofit.Call;
 import retrofit.http.Field;
 import retrofit.http.FormUrlEncoded;

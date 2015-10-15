@@ -1,4 +1,4 @@
-package edu.csh.cshdrink.adapters;
+package edu.csh.drink.adapters;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -14,7 +14,7 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import edu.csh.androiddrink.R;
-import edu.csh.cshdrink.models.Item;
+import edu.csh.drink.models.Item;
 
 public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
 

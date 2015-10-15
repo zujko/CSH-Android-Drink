@@ -1,4 +1,4 @@
-package edu.csh.cshdrink.models;
+package edu.csh.drink.models;
 
 public class Item {
     public String slot_num;

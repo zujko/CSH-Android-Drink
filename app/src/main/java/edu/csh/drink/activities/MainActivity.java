@@ -1,4 +1,4 @@
-package edu.csh.cshdrink.activities;
+package edu.csh.drink.activities;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -15,9 +15,9 @@ import android.widget.Toast;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import edu.csh.androiddrink.R;
-import edu.csh.cshdrink.DrinkApplication;
-import edu.csh.cshdrink.adapters.ViewPagerFragmentAdapter;
-import edu.csh.cshdrink.models.UserData;
+import edu.csh.drink.DrinkApplication;
+import edu.csh.drink.adapters.ViewPagerFragmentAdapter;
+import edu.csh.drink.models.UserData;
 import retrofit.Call;
 import retrofit.Callback;
 import retrofit.Response;

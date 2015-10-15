@@ -1,4 +1,4 @@
-package edu.csh.cshdrink.models;
+package edu.csh.drink.models;
 
 import com.google.gson.annotations.SerializedName;
 

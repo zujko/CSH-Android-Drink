@@ -5,7 +5,7 @@ android {
     buildToolsVersion "22.0.1"
 
     defaultConfig {
-        applicationId "edu.csh.androiddrink"
+        applicationId "edu.csh.drink"
         minSdkVersion 16
         targetSdkVersion 23
         versionCode 1

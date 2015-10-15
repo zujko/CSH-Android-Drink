@@ -1,4 +1,4 @@
-package edu.csh.cshdrink;
+package edu.csh.drink;
 
 import android.content.Context;
 import android.content.res.TypedArray;

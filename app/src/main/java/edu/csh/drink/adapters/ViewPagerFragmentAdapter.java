@@ -1,10 +1,10 @@
-package edu.csh.cshdrink.adapters;
+package edu.csh.drink.adapters;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import edu.csh.cshdrink.fragments.MachineFragment;
+import edu.csh.drink.fragments.MachineFragment;
 
 public class ViewPagerFragmentAdapter extends FragmentPagerAdapter {
     final int MACHINES_COUNT = 3;

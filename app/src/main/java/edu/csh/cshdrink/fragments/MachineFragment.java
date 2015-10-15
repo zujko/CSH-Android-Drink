@@ -80,10 +80,16 @@ public class MachineFragment extends Fragment {
             @Override
             public void onItemClicked(RecyclerView recyclerView, int position, View v) {
                 Item item = adapter.mItems.get(position);
-                if (item.isEnabled() && item.isAvailable()) {
+                Integer credits = Integer.valueOf(mPrefs.getString("credits",""));
+                Log.d("ITEM CLICK","Credits: " + credits);
+                if (item.isEnabled() && item.isAvailable() && Integer.valueOf(item.item_price) <= credits) {
                     createDropDialog(item);
                 } else {
-                    Toast.makeText(getContext(), "Item is not available", Toast.LENGTH_SHORT).show();
+                    if(item.isEnabled() && item.isAvailable() && Integer.valueOf(item.item_price) > credits) {
+                        Toast.makeText(getContext(),"Insufficient credits!",Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(getContext(), "Item is not available", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });

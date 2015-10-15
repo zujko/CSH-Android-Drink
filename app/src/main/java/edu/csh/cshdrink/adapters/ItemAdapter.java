@@ -39,10 +39,11 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Item item = mItems.get(position);
+
         if(item.isAvailable() && item.isEnabled()) {
             holder.itemTextView.setTextColor(Color.parseColor("#000000"));
             holder.itemPriceTextView.setTextColor(Color.parseColor("#000000"));
-        } else{
+        } else {
             holder.itemTextView.setTextColor(Color.parseColor("#9B9B9B"));
             holder.itemPriceTextView.setTextColor(Color.parseColor("#9B9B9B"));
         }

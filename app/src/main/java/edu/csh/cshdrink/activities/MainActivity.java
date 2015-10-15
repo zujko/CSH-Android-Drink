@@ -8,7 +8,6 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -77,7 +76,6 @@ public class MainActivity extends AppCompatActivity {
                 if (userData.status.equals("true")) {
                     UserData.User user = userData.data;
                     String data = String.format("UID: %s CREDITS: %s ADMIN: %s", user.uid, user.credits, user.admin);
-                    Log.d("USER DATA", data);
                     mPrefs.edit().putString("uid", user.uid).commit();
                     mPrefs.edit().putString("credits", user.credits).commit();
                     mPrefs.edit().putString("admin", user.admin).commit();
@@ -90,7 +88,6 @@ public class MainActivity extends AppCompatActivity {
             public void onFailure(Throwable t) {
                 Toast.makeText(getApplicationContext(), "Could not get user data", Toast.LENGTH_SHORT).show();
                 String errorMessage = String.format("Error: %s\nMessage: %s\nCause: %s", t.toString(), t.getMessage(), t.getCause().getMessage());
-                Log.e("LOGIN", errorMessage);
             }
         });
     }

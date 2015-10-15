@@ -1,13 +1,6 @@
 # CSH Drink
 CSH Drink is an Android app for members of the Computer Science House to access the vending machines on floor.
 
-Currently available on the play store.
-
-*[![Play Store Badge](https://developer.android.com/images/brand/en_generic_rgb_wo_60.png)](https://play.google.com/store/apps/details?id=edu.csh.androiddrink)*
-
-## Using the app
-To use the app you must first log into [WebDrink](https://webdrink.csh.rit.edu/#/machines). After logging in, click on "Settings" at the top of the page. Copy and paste your API key into the app and log in. 
-
 ## Contributing
 
 All types of contributions are welcome. The GitHub issue tracker is used for all bug tracking.

@@ -1,11 +1,13 @@
 # CSH Drink
 CSH Drink is an Android app for members of the Computer Science House to access the vending machines on floor.
+	
+*[![Play Store Badge](https://developer.android.com/images/brand/en_generic_rgb_wo_60.png)](https://play.google.com/store/apps/details?id=edu.csh.drink)*
 
 ## Contributing
 
 All types of contributions are welcome. The GitHub issue tracker is used for all bug tracking.
 
-https://github.com/Z-KO/CSH-Android-Drink/issues
+https://github.com/zujko/CSH-Android-Drink/issues
 
 ##License
 Copyright 2015 Peter Zujko

@@ -14,14 +14,12 @@ import android.widget.Toast;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import de.greenrobot.event.EventBus;
 import edu.csh.androiddrink.R;
 import edu.csh.drink.DrinkApplication;
 import edu.csh.drink.adapters.ViewPagerFragmentAdapter;
-import edu.csh.drink.models.UserData;
-import retrofit.Call;
-import retrofit.Callback;
-import retrofit.Response;
-import retrofit.Retrofit;
+import edu.csh.drink.events.UserDataEvent;
+import edu.csh.drink.jobs.GetUserInfoJob;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -37,9 +35,21 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
         setSupportActionBar(mToolBar);
-        getUserInfo(mPrefs.getString("key",""));
+        DrinkApplication.JOB_MANAGER.addJobInBackground(new GetUserInfoJob(mPrefs.getString("key",""), getApplicationContext()));
         mViewPager.setAdapter(new ViewPagerFragmentAdapter(getSupportFragmentManager()));
         mTabLayout.setupWithViewPager(mViewPager);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onStop() {
+        EventBus.getDefault().unregister(this);
+        super.onStop();
     }
 
     @Override
@@ -60,35 +70,16 @@ public class MainActivity extends AppCompatActivity {
 
     private void signOut() {
         mPrefs.edit().clear().commit();
-        startActivity(new Intent(this,LoginActivity.class));
+        startActivity(new Intent(this, LoginActivity.class));
         this.finish();
     }
-    /**
-     * Gets user info (uid,credits,admin,name) and stores it in SharedPreferences.
-     * @param apiKey
-     */
-    private void getUserInfo(String apiKey) {
-        Call<UserData> userDataCall = DrinkApplication.API.getUserInfo(apiKey);
-        userDataCall.enqueue(new Callback<UserData>() {
-            @Override
-            public void onResponse(Response<UserData> response, Retrofit retrofit) {
-                UserData userData = response.body();
-                if (userData.status.equals("true")) {
-                    UserData.User user = userData.data;
-                    String data = String.format("UID: %s CREDITS: %s ADMIN: %s", user.uid, user.credits, user.admin);
-                    mPrefs.edit().putString("uid", user.uid).commit();
-                    mPrefs.edit().putString("credits", user.credits).commit();
-                    mPrefs.edit().putString("admin", user.admin).commit();
-                    getSupportActionBar().setTitle(mPrefs.getString("uid",""));
-                    getSupportActionBar().setSubtitle("Credits: "+ mPrefs.getString("credits",""));
-                }
-            }
 
-            @Override
-            public void onFailure(Throwable t) {
-                Toast.makeText(getApplicationContext(), "Could not get user data", Toast.LENGTH_SHORT).show();
-                String errorMessage = String.format("Error: %s\nMessage: %s\nCause: %s", t.toString(), t.getMessage(), t.getCause().getMessage());
-            }
-        });
+    public void onEventMainThread(UserDataEvent event) {
+        if(event.isSuccessful) {
+            getSupportActionBar().setTitle(mPrefs.getString("uid", ""));
+            getSupportActionBar().setSubtitle("Credits: " + mPrefs.getString("credits", ""));
+        } else {
+            Toast.makeText(getApplicationContext(), "Could not get user data", Toast.LENGTH_SHORT).show();
+        }
     }
 }
